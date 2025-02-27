@@ -1,25 +1,38 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import supabase from "./supabase-client";
 
-const supabase = createClient("https://goutivabyqouomuuarpl.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvdXRpdmFieXFvdW9tdXVhcnBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA1ODA2MTYsImV4cCI6MjA1NjE1NjYxNn0.tsndSUOM0eak6mi8_azpXlVDejKgF49Vjoe-UTR5PLI");
 
 function App() {
-  const [instruments, setInstruments] = useState([]);
+  const [todoList, setTodoList] = useState([])
 
+  //since want to call fetchTodos on 1st render
   useEffect(() => {
-    getInstruments();
+    // console.log("useEffect called");
+    fetchTodos();
   }, []);
 
-  async function getInstruments() {
-    const { data } = await supabase.from("instruments").select();
-    setInstruments(data);
-  }
+  const fetchTodos = async () => {
+    // console.log("fetchTodos called");
+    const { data, error } = await supabase.from("TodoList").select("*");
+    //destructure response get back from supabase. should return an array
+    if (error) {
+      console.log("Error fetching: ", error)
+    } else {
+      // console.log("Data fetched: ", data);
+      setTodoList(data)
+    }
+  };
 
   return (
     <>
-      {instruments.map((instrument) => (
-        <li key={instrument.name}>{instrument.name}</li>
-      ))}
+      <h1>Todo List</h1>
+      <ul>
+        {todoList.map((todo) => (
+          <li key={todo.id}>
+            <p>{todo.name}</p>
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
