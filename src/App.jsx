@@ -17,7 +17,7 @@ function App() {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
-    return () => listener.unsubscribe();
+    return () => listener.subscription.unsubscribe();
   }, []);
 
   const handleLogin = async () => {

@@ -27,8 +27,8 @@ function Dashboard() {
   ];
 
   // The axes configuration is required by react-charts
-  const primaryAxis = { getValue: (d) => d.primary };
-  const secondaryAxes = [{ getValue: (d) => d.secondary }];
+  const primaryAxis = { getValue: (d) => d.primary, scaleType: 'time' };
+  const secondaryAxes = [{ getValue: (d) => d.secondary, scaleType: 'linear' }];
 
   return (
     <div>
