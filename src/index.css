@@ -33,6 +33,11 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
 }
 
 button {
@@ -65,4 +70,9 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.chart-container {
+  width: 600px; /* Set the width of the chart */
+  height: 400px; /* Set the height of the chart */
 }
