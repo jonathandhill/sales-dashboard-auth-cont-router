@@ -3,30 +3,25 @@ import { Chart } from 'react-charts';
 import supabase from './supabase-client';
 
 function Dashboard() {
-  const [metrics, setMetrics] = useState([]);
+    const [metrics, setMetrics] = useState([]);
 
-  useEffect(() => {
-    fetchMetrics();
-  }, []);
+    useEffect(() => {
+        fetchMetrics();
+    }, []);
 
-  // const fetchMetrics = async () => {
-  //   const { data, error } = await supabase.from('ProjectMetrics').select('*');
-  //   if (error) console.error('Error fetching metrics:', error);
-  //   else setMetrics(data);
-  // };
+    async function fetchMetrics() {
+        const { data, error } = await supabase
+            .from('ProjectMetrics')
+            .select('name, value.sum()');
+        if (error) {
+            console.error('Error fetching metrics:', error);
+        } else {
+            setMetrics(data)
+        }
+    };
+    
 
-  const fetchMetrics = async () => {
-    const { data, error } = await supabase
-      .from('ProjectMetrics')
-      .select('name, value.sum()');
-    if (error) {
-      console.error('Error fetching metrics:', error);
-    } else {
-      setMetrics(data);
-    }
-  };
-
-  // Map Supabase data to chart format (assumes each record has created_at and value)
+    // Map Supabase data to chart format (assumes each record has created_at and value)
   const chartData = [
     {
       data: metrics.map((m) => ({

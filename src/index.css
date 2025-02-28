@@ -1,11 +1,11 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Rubik', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #b61818;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -73,6 +73,6 @@ button:focus-visible {
 }
 
 .chart-container {
-  width: 600px; /* Set the width of the chart */
-  height: 400px; /* Set the height of the chart */
+  width: 600px; 
+  height: 400px; 
 }
