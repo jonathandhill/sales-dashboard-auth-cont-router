@@ -10,13 +10,10 @@ function Dashboard() {
     }, []);
 
     async function fetchMetrics() {
-        const { data, error } = await supabase
+        const { data } = await supabase
             .from('ProjectMetrics')
             .select('name, value.sum()');
-        if (error) {
-            console.error('Error fetching metrics:', error);
-        } else {
-            setMetrics(data)
+        setMetrics(data)
         }
     };
     
