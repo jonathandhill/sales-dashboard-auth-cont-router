@@ -1,37 +1,36 @@
-import { useEffect, useState } from 'react';
 import { Chart } from 'react-charts';
 import supabase from './supabase-client';
 
 function Dashboard() {
-    const [metrics, setMetrics] = useState([]);
-
-    useEffect(() => {
-        fetchMetrics();
-    }, []);
-
-    async function fetchMetrics() {
-        const { data } = await supabase
-            .from('ProjectMetrics')
-            .select('name, value.sum()');
-        setMetrics(data)
-        }
-    };
     
+  async function fetchMetrics() {
+    const { data } = await supabase
+      .from('ProjectMetrics')
+      .select(
+        `
+        name, 
+        value.sum()
+        `,
+      )
+  };
+//CHALLENGE
+// 1. Write fetchMetrics function and destructure response from Supabase query
+// 2. Add useEffect hook with empty dependency array to tell React to run this on initial render
+// 3. Add state to hold the data and pass Supabase data to setter function to finish fetchMetrics
+// 4. Map around state variable & set values of data key of the object in the chartData array
+// Tip: console.log the data to help decide primary/secondary values
 
     // Map Supabase data to chart format (assumes each record has created_at and value)
   const chartData = [
     {
-      data: metrics.map((m) => ({
-        primary: m.name,
-        secondary: m.sum,
-        // primary: new Date(m.created_at),
-        // secondary: m.value,
+      data: /* add state variable */.map((m) => ({
+        primary: /* add main x-axis value */,
+        secondary: /* add y-axis value */,
       })),
     },
   ];
 
   // The axes configuration is required by react-charts
-  // const primaryAxis = { getValue: (d) => d.primary, scaleType: 'time' };
   const primaryAxis = { getValue: (d) => d.primary, scaleType: 'band' };
   const secondaryAxes = [{ 
     getValue: (d) => d.secondary, 
