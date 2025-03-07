@@ -16,7 +16,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #e0e7c6;
+    background-color: #75d0c3;
   }
   a:hover {
     color: #747bff;
@@ -36,6 +36,7 @@ h2 {
   margin: 0;
   padding: 1rem;
   font-family: 'Open Sans';
+  color: #75d0c3;
 }
 
 .chart-container {
@@ -73,7 +74,19 @@ form > label {
 
 form > input {
   font-family: 'Open Sans';
-  width: ;
+}
+
+form > button {
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #868bf0;
+  color: white;
+}
+
+form > button:hover {
+  background-color: #c1cfdf;
 }
 
 .amount-input {

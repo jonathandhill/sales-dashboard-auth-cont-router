@@ -35,13 +35,23 @@ function Dashboard() {
   ];
 
  
-  const primaryAxis = { getValue: (d) => d.primary, scaleType: 'band' };
+  const primaryAxis = { 
+    getValue: (d) => d.primary, 
+    scaleType: 'band',
+    padding: 0.2,
+    position: 'bottom'
+  };
+  
   const secondaryAxes = [
     {
       getValue: (d) => d.secondary,
       scaleType: 'linear',
       min: 0,
       max: 10000,
+      padding: {
+        top: 20,
+        bottom: 40
+      }
     },
   ];
 
@@ -57,14 +67,14 @@ function Dashboard() {
               primaryAxis,
               secondaryAxes,
               type: 'bar',
-              defaultColors: ['#36A2EB'],
+              defaultColors: ['#75d0c3'],
             }}
           />
         </div>
       </div>
       <div className="form-container">
           <form>
-            <label>Add deal:
+            <label>Name:
               <select>
                 <option value="Jim">Jim</option>
                 <option value="Andy">Andy</option>
@@ -78,7 +88,7 @@ function Dashboard() {
                 className="amount-input" 
               />
             </label>
-            <input type="submit"/>
+            <button type="submit">Add Deal</button>
           </form>
         </div>
     </div>
