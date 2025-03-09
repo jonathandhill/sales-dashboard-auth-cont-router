@@ -6,6 +6,57 @@ function Dashboard() {
   const [metrics, setMetrics] = useState([]);
   useEffect(() => {
     fetchMetrics()
+
+    const channel = supabase
+      .channel('metric-changes')
+      .on(
+        'postgres_changes',
+        { 
+          event: 'INSERT', 
+          schema: 'public', 
+          table: 'ProjectMetrics' 
+        },
+        payload => {
+          console.log(payload);
+          const { new: newRecord } = payload;
+
+          setMetrics(currentMetrics => {
+            const { name, value } = newRecord;
+            
+            const existingMetric = currentMetrics.find(m => m.name === name);
+
+            if (existingMetric) {
+              return currentMetrics.map(m => 
+                m.name === name 
+                  ? { ...m, sum: m.sum + value }
+                  : m
+              );
+            } else {
+              return [...currentMetrics, { 
+                name: name, 
+                sum: value 
+              }];
+            }
+
+
+            // const existingName = currentMetrics.find(item => item.name === newRecord.name);
+            // const { name, value } = newRecord;
+
+            // if (existingName) {
+            //   return currentMetrics.map(item =>
+            //     item.name === name ? { ...item, value: item.value + value } : item
+            //   );
+            // } else {
+            //   return [...currentMetrics, { name, value }];
+            // }
+          });
+        })
+      .subscribe();
+
+    // Clean up subscription
+    return () => {
+      channel.unsubscribe();
+    };
   }, []);
   
 
@@ -18,8 +69,12 @@ function Dashboard() {
         value.sum()
         `,
       )
-    setMetrics(data);
-  }
+      if (error) {
+        console.error('Error fetching metrics:', error);
+      } else {
+        setMetrics(data);
+      }
+  };
 
  
 
