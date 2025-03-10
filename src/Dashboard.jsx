@@ -1,6 +1,7 @@
 import { Chart } from 'react-charts';
 import supabase from './supabase-client';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Dashboard() {
   const [metrics, setMetrics] = useState([]);
@@ -20,10 +21,14 @@ function Dashboard() {
         },
         payload => {
           console.log(payload);
+
+          
+
           const { new: newRecord } = payload;
+          const { name, value } = newRecord;
+          notifyDeal(name, value);
 
           setMetrics(currentMetrics => {
-            const { name, value } = newRecord;
             
             const existingMetric = currentMetrics.find(metric => metric.name === name);
 
@@ -49,6 +54,8 @@ function Dashboard() {
       supabase.removeChannel(channel);
     };
   }, []);
+
+  const notifyDeal = (name, value) => toast(`${name} has added a new $${value} deal`);
   
 
   async function fetchMetrics() {
@@ -86,7 +93,7 @@ function Dashboard() {
     event.preventDefault();
     console.log(newDeal);
     addDeal();
-    // setNewDeal({name: 'Sandra'});
+    setNewDeal({ name: 'Sandra', value: '' });
   }
 
 
@@ -123,6 +130,7 @@ function Dashboard() {
 
   return (
     <div>
+      <ToastContainer />
       <h1>Sales Team Dashboard</h1>
       <div className="chart-container">
         <h2>Total Sales This Quarter ($)</h2>
