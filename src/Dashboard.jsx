@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 function Dashboard() {
   const [metrics, setMetrics] = useState([]);
+  const [newDeal, setNewDeal] = useState({name: 'Sandra'});
+
   useEffect(() => {
     fetchMetrics()
 
@@ -23,13 +25,13 @@ function Dashboard() {
           setMetrics(currentMetrics => {
             const { name, value } = newRecord;
             
-            const existingMetric = currentMetrics.find(m => m.name === name);
+            const existingMetric = currentMetrics.find(metric => metric.name === name);
 
             if (existingMetric) {
-              return currentMetrics.map(m => 
-                m.name === name 
-                  ? { ...m, sum: m.sum + value }
-                  : m
+              return currentMetrics.map(metric => 
+                metric.name === name 
+                  ? { ...metric, sum: metric.sum + value }
+                  : metric
               );
             } else {
               return [...currentMetrics, { 
@@ -37,25 +39,14 @@ function Dashboard() {
                 sum: value 
               }];
             }
-
-
-            // const existingName = currentMetrics.find(item => item.name === newRecord.name);
-            // const { name, value } = newRecord;
-
-            // if (existingName) {
-            //   return currentMetrics.map(item =>
-            //     item.name === name ? { ...item, value: item.value + value } : item
-            //   );
-            // } else {
-            //   return [...currentMetrics, { name, value }];
-            // }
           });
         })
       .subscribe();
 
-    // Clean up subscription
-    return () => {
-      channel.unsubscribe();
+     // This returned function is the "cleanup" function
+     return () => {
+      // Cleanup code runs when the component unmounts
+      supabase.removeChannel(channel);
     };
   }, []);
   
@@ -76,7 +67,27 @@ function Dashboard() {
       }
   };
 
- 
+  async function addDeal() {
+    const { error } = await supabase
+      .from('ProjectMetrics')
+      .insert(newDeal);
+    if (error) {
+      console.log("Error adding deal: ", error);
+    }
+  }
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setNewDeal(values => ({...values, [name]: value}))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(newDeal);
+    addDeal();
+    // setNewDeal({name: 'Sandra'});
+  }
 
 
 
@@ -128,18 +139,20 @@ function Dashboard() {
         </div>
       </div>
       <div className="form-container">
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>Name:
-              <select>
-                <option value="Jim">Jim</option>
-                <option value="Andy">Andy</option>
-                <option value="Dwight">Dwight</option>
+              <select value={newDeal.name} onChange={handleChange} name="name">
+                <option value="Sandra">Sandra</option>
+                <option value="Mark">Mark</option>
+                <option value="Gary">Gary</option>
               </select>
             </label>
             <label>Amount: $
               <input 
                 type="text" 
-                name="username"
+                name="value"
+                value={newDeal.value || ""}
+                onChange={handleChange}
                 className="amount-input" 
               />
             </label>
