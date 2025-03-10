@@ -28,23 +28,25 @@ function Dashboard() {
           const { name, value } = newRecord;
           notifyDeal(name, value);
 
-          setMetrics(currentMetrics => {
-            
-            const existingMetric = currentMetrics.find(metric => metric.name === name);
+          fetchMetrics(); // Fetch the latest metrics after an insert event
 
-            if (existingMetric) {
-              return currentMetrics.map(metric => 
-                metric.name === name 
-                  ? { ...metric, sum: metric.sum + value }
-                  : metric
-              );
-            } else {
-              return [...currentMetrics, { 
-                name: name, 
-                sum: value 
-              }];
-            }
-          });
+          // setMetrics(currentMetrics => {
+            
+          //   const existingMetric = currentMetrics.find(metric => metric.name === name);
+
+          //   if (existingMetric) {
+          //     return currentMetrics.map(metric => 
+          //       metric.name === name 
+          //         ? { ...metric, sum: metric.sum + value }
+          //         : metric
+          //     );
+          //   } else {
+          //     return [...currentMetrics, { 
+          //       name: name, 
+          //       sum: value 
+          //     }];
+          //   }
+          // });
         })
       .subscribe();
 
