@@ -1,7 +1,6 @@
 import { Chart } from 'react-charts';
 import supabase from './supabase-client';
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 
 function Dashboard() {
   const [metrics, setMetrics] = useState([]);
@@ -15,38 +14,19 @@ function Dashboard() {
       .on(
         'postgres_changes',
         { 
-          event: 'INSERT', 
+          event: '*', 
           schema: 'public', 
           table: 'ProjectMetrics' 
         },
         payload => {
           console.log(payload);
 
-          
-
-          const { new: newRecord } = payload;
-          const { name, value } = newRecord;
-          notifyDeal(name, value);
+          // To use new/old record from payload
+          // const { new: newRecord } = payload;
+          // const { name, value } = newRecord;
 
           fetchMetrics(); // Fetch the latest metrics after an insert event
 
-          // setMetrics(currentMetrics => {
-            
-          //   const existingMetric = currentMetrics.find(metric => metric.name === name);
-
-          //   if (existingMetric) {
-          //     return currentMetrics.map(metric => 
-          //       metric.name === name 
-          //         ? { ...metric, sum: metric.sum + value }
-          //         : metric
-          //     );
-          //   } else {
-          //     return [...currentMetrics, { 
-          //       name: name, 
-          //       sum: value 
-          //     }];
-          //   }
-          // });
         })
       .subscribe();
 
@@ -57,7 +37,7 @@ function Dashboard() {
     };
   }, []);
 
-  const notifyDeal = (name, value) => toast(`${name} has added a new $${value} deal`);
+  // const notifyDeal = (name, value) => toast(`${name} has added a new $${value} deal`);
   
 
   async function fetchMetrics() {
@@ -116,13 +96,21 @@ function Dashboard() {
     padding: 0.2,
     position: 'bottom'
   };
+
+  function y_max() {
+    if (metrics.length > 0) {
+      const maxSum = Math.max(...metrics.map(m => m.sum));
+      return maxSum + 2000;
+    }
+    return 5000; // Default value if metrics is empty
+  }
   
   const secondaryAxes = [
     {
       getValue: (d) => d.secondary,
       scaleType: 'linear',
       min: 0,
-      max: 10000,
+      max: y_max(),
       padding: {
         top: 20,
         bottom: 40
@@ -130,9 +118,16 @@ function Dashboard() {
     },
   ];
 
+  const generateOptions = () => {
+    return metrics.map((metric) => (
+      <option key={metric.name} value={metric.name}>
+        {metric.name}
+      </option>
+    ));
+  };
+
   return (
     <div>
-      <ToastContainer />
       <h1>Sales Team Dashboard</h1>
       <div className="chart-container">
         <h2>Total Sales This Quarter ($)</h2>
@@ -144,6 +139,9 @@ function Dashboard() {
               secondaryAxes,
               type: 'bar',
               defaultColors: ['#75d0c3'],
+              tooltip: {
+                show: false,
+              }
             }}
           />
         </div>
@@ -152,9 +150,7 @@ function Dashboard() {
           <form onSubmit={handleSubmit}>
             <label>Name:
               <select value={newDeal.name} onChange={handleChange} name="name">
-                <option value="Sandra">Sandra</option>
-                <option value="Mark">Mark</option>
-                <option value="Gary">Gary</option>
+                {generateOptions()}
               </select>
             </label>
             <label>Amount: $
@@ -174,3 +170,28 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
+ // setMetrics(currentMetrics => {
+            
+          //   const existingMetric = currentMetrics.find(metric => metric.name === name);
+
+          //   if (existingMetric) {
+          //     return currentMetrics.map(metric => 
+          //       metric.name === name 
+          //         ? { ...metric, sum: metric.sum + value }
+          //         : metric
+          //     );
+          //   } else {
+          //     return [...currentMetrics, { 
+          //       name: name, 
+          //       sum: value 
+          //     }];
+          //   }
+          // });
+
+          // const notifyDeal = (name, value) => toast(`${name} has added a new $${value} deal`);
+
+          // <option value="Jim">Jim</option>
+          //       <option value="Andy">Andy</option>
+          //       <option value="Dwight">Dwight</option>
