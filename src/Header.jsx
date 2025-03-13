@@ -1,10 +1,4 @@
-import supabase from './supabase-client';
-
-function Header({ session }) {
-
-  const logOut =  async () => {
-    const { error } = await supabase.auth.signOut()
-  };
+function Header() {
 
   return (
     <>
@@ -22,7 +16,7 @@ function Header({ session }) {
           </svg>
           Sales Team Dashboard
         </h1>
-        {session && <button onClick={logOut}>Logout</button>}
+        
       </header>
     </>
   );
@@ -30,3 +24,9 @@ function Header({ session }) {
 }
 
 export default Header;
+
+// const logOut =  async () => {
+//     const { error } = await supabase.auth.signOut()
+//   };
+
+//   {session && <button onClick={logOut}>Logout</button>}

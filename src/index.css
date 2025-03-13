@@ -19,7 +19,7 @@ header {
   left: 0;
   right: 0;
   padding: 2rem 0;
-  height: 5rem;
+  height: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,11 +40,18 @@ h2 {
   padding: 1rem;
 }
 
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
 .chart-container {
-  width: 700px;
-  height: 600px;
+  width: 90%;
+  height: 65vh;
   background-color: #f9f9f9;
-  margin: 11rem auto 10px auto;
+  margin: 8.5rem auto 10px auto;
   padding: 0 10px 20px 10px;
   position: relative;
   overflow: hidden;
@@ -52,15 +59,17 @@ h2 {
   flex-direction: column;
   border-radius: 20px;
   border: 0.5px ridge;
+  flex-grow: 1;
 }
 
 .form-container {
   background-color: #f9f9f9;
-  width: 720px;
+  width: 93%;
   border-radius: 20px;
-  margin: 10px auto;
+  margin: 5px auto 20px auto;
   padding: 3px 0;
   border: 0.5px ridge;
+  flex-shrink: 0;
 }
 
 form {
@@ -107,7 +116,7 @@ select {
   margin-left: 5px;
 }
 
-.auth-container {
+/* .auth-container {
   background-color: #D8D9C6;
   margin: 11rem auto 0 auto;
   width: 25rem;
@@ -117,7 +126,7 @@ select {
 }
 
 /* Auth UI Components */
-.auth-button {
+/* .auth-button {
   transition: all 0.2s ease-in-out !important;
 }
 
@@ -138,4 +147,4 @@ select {
 .auth-label {
   font-weight: 500 !important;
   margin-bottom: 4px !important;
-}
+}  */

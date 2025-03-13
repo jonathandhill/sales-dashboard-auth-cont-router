@@ -127,8 +127,7 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <h1>Sales Team Dashboard</h1>
+    <div className="dashboard-wrapper">
       <div className="chart-container">
         <h2>Total Sales This Quarter ($)</h2>
         <div style={{ flex: 1 }}>
