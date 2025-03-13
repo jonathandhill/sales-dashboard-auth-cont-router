@@ -138,7 +138,7 @@ function Dashboard() {
               primaryAxis,
               secondaryAxes,
               type: 'bar',
-              defaultColors: ['#75d0c3'],
+              defaultColors: ['#ADDF33'],
               tooltip: {
                 show: false,
               }

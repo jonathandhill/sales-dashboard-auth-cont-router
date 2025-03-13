@@ -43,13 +43,14 @@ function App() {
               variables: {
                 default: {
                   colors: {
-                    brand: '#082c1b',
-                    brandAccent: '#aadfd7',
+                    brand: '#FAA23E', //Orange
+                    brandAccent: '#f7b671', //Light orange
                     inputBackground: 'white',
-                    anchorTextColor: 'black',
+                    anchorTextColor: '#134e32',
                     inputPlaceholder: 'black',
-                    inputLabelText: 'black',
-                    brandButtonText: 'white',
+                    inputLabelText: '#134e32',
+                    brandButtonText: 'black',
+                    messageTextDanger: 'red',
                   },
                 },
               },

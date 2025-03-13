@@ -2,50 +2,42 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: black;
   background-color: white;
-
   font-synthesis: none;
   text-rendering: optimizeLegending;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
 header {
   background-color: #134e32;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  left: 0;
+  right: 0;
   padding: 2rem 0;
-  margin-bottom: 0.5rem;
+  height: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 5rem;
 }
 
-
 h1 {
-  text-align: center;
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
   color: white;
   margin: 10px;
+  display: flex;
+  align-items: center;
 }
 
 h2 {
-  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #082c1b;
   margin: 0;
   padding: 1rem;
-  font-family: 'Open Sans';
-  color: #082c1b;
 }
 
 .chart-container {
@@ -59,19 +51,16 @@ h2 {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  border-style: ridge;
-  border-width: 0.5px;
+  border: 0.5px ridge;
 }
 
 .form-container {
-  margin-top: 10px;
   background-color: #f9f9f9;
-  padding: 3px 0px;
   width: 720px;
   border-radius: 20px;
   margin: 10px auto;
-  border-style: ridge;
-  border-width: 0.5px;
+  padding: 3px 0;
+  border: 0.5px ridge;
 }
 
 form {
@@ -82,31 +71,36 @@ form {
   margin: 5px;
 }
 
-form > label {
-  font-family: 'Open Sans';
+label {
+  font-family: 'Open Sans', sans-serif;
   display: flex;
 }
 
-form > input {
-  font-family: 'Open Sans';
+input {
+  font-family: 'Open Sans', sans-serif;
+  transition: border-color 0.2s ease-in-out !important;
 }
 
 button {
   padding: 7px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #082c1b;
-  color: white;
+  background-color: #FAA23E;
+  color: black;
   width: 100px;
+  transition: all 0.2s ease-in-out !important;
 }
 
 button:hover {
-  background-color: #5c9277;
+  background-color: #f7b671;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 .amount-input {
   width: 60px;
+  margin-left: 2px;
 }
 
 select {
@@ -114,9 +108,34 @@ select {
 }
 
 .auth-container {
-  background-color: rgb(240, 240, 204);
+  background-color: #D8D9C6;
   margin: 11rem auto 0 auto;
-  width: 18rem;
+  width: 25rem;
   border-radius: 30px;
+  position: relative;
+  padding: 20px;
 }
 
+/* Auth UI Components */
+.auth-button {
+  transition: all 0.2s ease-in-out !important;
+}
+
+.auth-button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.auth-input {
+  transition: border-color 0.2s ease-in-out !important;
+}
+
+.auth-input:focus {
+  border-color: #FAA23E !important;
+  box-shadow: 0 0 0 2px rgba(250, 162, 62, 0.2) !important;
+}
+
+.auth-label {
+  font-weight: 500 !important;
+  margin-bottom: 4px !important;
+}
