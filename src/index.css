@@ -83,6 +83,7 @@ form {
 label {
   font-family: 'Open Sans', sans-serif;
   display: flex;
+  color: #082c1b;
 }
 
 input {

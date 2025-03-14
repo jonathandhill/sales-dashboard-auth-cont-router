@@ -1,10 +1,11 @@
 import { Chart } from 'react-charts';
 import supabase from './supabase-client';
 import { useEffect, useState } from 'react';
+import Form from './Form';
 
 function Dashboard() {
   const [metrics, setMetrics] = useState([]);
-  const [newDeal, setNewDeal] = useState({name: 'Sandra'});
+  // const [newDeal, setNewDeal] = useState({name: 'Sandra'});
 
   useEffect(() => {
     fetchMetrics()
@@ -56,27 +57,27 @@ function Dashboard() {
       }
   };
 
-  async function addDeal() {
-    const { error } = await supabase
-      .from('ProjectMetrics')
-      .insert(newDeal);
-    if (error) {
-      console.log("Error adding deal: ", error);
-    }
-  }
+  // async function addDeal() {
+  //   const { error } = await supabase
+  //     .from('ProjectMetrics')
+  //     .insert(newDeal);
+  //   if (error) {
+  //     console.log("Error adding deal: ", error);
+  //   }
+  // }
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setNewDeal(values => ({...values, [name]: value}))
-  }
+  // const handleChange = (event) => {
+  //   const name = event.target.name;
+  //   const value = event.target.value;
+  //   setNewDeal(values => ({...values, [name]: value}))
+  // }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(newDeal);
-    addDeal();
-    setNewDeal({ name: 'Sandra', value: '' });
-  }
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   console.log(newDeal);
+  //   addDeal();
+  //   setNewDeal({ name: 'Sandra', value: '' });
+  // }
 
 
 
@@ -118,13 +119,13 @@ function Dashboard() {
     },
   ];
 
-  const generateOptions = () => {
-    return metrics.map((metric) => (
-      <option key={metric.name} value={metric.name}>
-        {metric.name}
-      </option>
-    ));
-  };
+  // const generateOptions = () => {
+  //   return metrics.map((metric) => (
+  //     <option key={metric.name} value={metric.name}>
+  //       {metric.name}
+  //     </option>
+  //   ));
+  // };
 
   return (
     <div className="dashboard-wrapper">
@@ -145,7 +146,8 @@ function Dashboard() {
           />
         </div>
       </div>
-      <div className="form-container">
+      <Form metrics={metrics} />
+      {/* <div className="form-container">
           <form onSubmit={handleSubmit}>
             <label>Name:
               <select value={newDeal.name} onChange={handleChange} name="name">
@@ -163,8 +165,8 @@ function Dashboard() {
             </label>
             <button type="submit">Add Deal</button>
           </form>
-        </div>
-    </div>
+      </div>*/}
+    </div> 
   );
 }
 
