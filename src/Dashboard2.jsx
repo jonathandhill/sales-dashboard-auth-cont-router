@@ -36,18 +36,18 @@ function Dashboard() {
   }, []);
 
   async function fetchMetrics() {
-    const { data, error } = await supabase
-      .from('sales_deals')
-      .select(
+    try {
+      const { data, error } = await supabase.from('sales_deals').select(
         `
-        name,
-        value.sum()
-        `
+          name,
+          value.sum()
+          `
       );
-    if (data) {
+      if (error) {
+        throw error;
+      }
       setMetrics(data);
-    }
-    if (error) {
+    } catch (error) {
       console.error('Error fetching metrics:', error);
     }
   }
