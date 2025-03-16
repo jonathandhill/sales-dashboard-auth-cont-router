@@ -42,20 +42,21 @@ function Dashboard() {
   
 
   async function fetchMetrics() {
-    const { data, error } = await supabase
-      .from('ProjectMetrics')
-      .select(
+    try {
+      const { data, error } = await supabase.from('ProjectMetrics').select(
         `
-        name,
-        value.sum()
-        `,
-      )
+          name,
+          value.sum()
+          `
+      );
       if (error) {
-        console.error('Error fetching metrics:', error);
-      } else {
-        setMetrics(data);
+        throw error;
       }
-  };
+      setMetrics(data);
+    } catch (error) {
+      console.error('Error fetching metrics:', error);
+    }
+  }
 
   // async function addDeal() {
   //   const { error } = await supabase
