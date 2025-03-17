@@ -59,12 +59,16 @@ function Dashboard() {
   }
 
   // async function addDeal() {
-  //   const { error } = await supabase
-  //     .from('ProjectMetrics')
-  //     .insert(newDeal);
-  //   if (error) {
-  //     console.log("Error adding deal: ", error);
-  //   }
+  //   try {
+  //     const { error } = await supabase
+  //       .from('ProjectMetrics')
+  //       .insert(newDeal);
+  //     if (error) {
+  //       throw error;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding deal: ", error);
+  //   }  
   // }
 
   // const handleChange = (event) => {

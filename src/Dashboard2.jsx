@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 function Dashboard() {
   const [metrics, setMetrics] = useState([]);
-  const [newDeal, setNewDeal] = useState({name: 'Jim'});
-  
+  const [newDeal, setNewDeal] = useState({ name: 'Jim' });
+
   useEffect(() => {
     fetchMetrics();
 
@@ -13,12 +13,12 @@ function Dashboard() {
       .channel('deal-changes')
       .on(
         'postgres_changes',
-        { 
-          event: '*', 
-          schema: 'public', 
-          table: 'sales_deals' 
+        {
+          event: '*',
+          schema: 'public',
+          table: 'sales_deals',
         },
-        payload => {
+        (payload) => {
           console.log(payload);
           const { new: newRecord } = payload;
           const { name, value } = newRecord;
@@ -28,7 +28,7 @@ function Dashboard() {
       )
       .subscribe();
 
-     // This returned function is the "cleanup" function
+    // This returned function is the "cleanup" function
     return () => {
       // Cleanup code runs when the component unmounts
       supabase.removeChannel(channel);
@@ -53,26 +53,28 @@ function Dashboard() {
   }
 
   async function addDeal() {
-    const { error } = await supabase
-      .from('sales_deals')
-      .insert(newDeal);
-    if (error) {
-      console.log("Error adding deal: ", error);
+    try {
+      const { error } = await supabase.from('sales_deals').insert(newDeal);
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error adding deal: ', error);
     }
   }
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setNewDeal(values => ({...values, [name]: value}))
-  }
+    setNewDeal((values) => ({ ...values, [name]: value }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(newDeal);
     addDeal();
     setNewDeal({ name: 'Jim', value: '' });
-  }
+  };
 
   const chartData = [
     {
@@ -83,16 +85,16 @@ function Dashboard() {
     },
   ];
 
-  const primaryAxis = { 
-    getValue: (d) => d.primary, 
+  const primaryAxis = {
+    getValue: (d) => d.primary,
     scaleType: 'band',
     padding: 0.2,
-    position: 'bottom'
+    position: 'bottom',
   };
 
   function y_max() {
     if (metrics.length > 0) {
-      const maxSum = Math.max(...metrics.map(m => m.sum));
+      const maxSum = Math.max(...metrics.map((m) => m.sum));
       return maxSum + 2000;
     }
     return 5000; // Default value if metrics is empty
@@ -103,11 +105,11 @@ function Dashboard() {
       getValue: (d) => d.secondary,
       scaleType: 'linear',
       min: 0,
-      max: y_max(), 
+      max: y_max(),
       padding: {
         top: 20,
         bottom: 40,
-      }
+      },
     },
   ];
 
@@ -134,32 +136,32 @@ function Dashboard() {
               defaultColors: ['#75d0c3'],
               tooltip: {
                 show: false,
-              }
+              },
             }}
           />
         </div>
       </div>
       <div className="form-container">
-          <form onSubmit={handleSubmit}>
-            <label>Name:
-              <select value={newDeal.name} onChange={handleChange} name="name">
-
-
+        <form onSubmit={handleSubmit}>
+          <label>
+            Name:
+            <select value={newDeal.name} onChange={handleChange} name="name">
               {generateOptions()}
-              </select>
-            </label>
-            <label>Amount: $
-              <input 
-                type="text" 
-                name="value"
-                value={newDeal.value || ""}
-                onChange={handleChange}
-                className="amount-input" 
-              />
-            </label>
-            <button>Add Deal</button>
-          </form>
-        </div>
+            </select>
+          </label>
+          <label>
+            Amount: $
+            <input
+              type="text"
+              name="value"
+              value={newDeal.value || ''}
+              onChange={handleChange}
+              className="amount-input"
+            />
+          </label>
+          <button>Add Deal</button>
+        </form>
+      </div>
     </div>
   );
 }

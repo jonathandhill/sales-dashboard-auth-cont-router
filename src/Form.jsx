@@ -6,13 +6,17 @@ function Form({ metrics }) {
 
 
     async function addDeal() {
+      try {
         const { error } = await supabase
           .from('ProjectMetrics')
           .insert(newDeal);
         if (error) {
-          console.log("Error adding deal: ", error);
+          throw error;
         }
-      }
+      } catch (error) {
+        console.error("Error adding deal: ", error);
+      }  
+    }
     
       const handleChange = (event) => {
         const name = event.target.name;
