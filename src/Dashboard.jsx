@@ -58,33 +58,6 @@ function Dashboard() {
     }
   }
 
-  // async function addDeal() {
-  //   try {
-  //     const { error } = await supabase
-  //       .from('ProjectMetrics')
-  //       .insert(newDeal);
-  //     if (error) {
-  //       throw error;
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding deal: ", error);
-  //   }  
-  // }
-
-  // const handleChange = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   setNewDeal(values => ({...values, [name]: value}))
-  // }
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(newDeal);
-  //   addDeal();
-  //   setNewDeal({ name: 'Sandra', value: '' });
-  // }
-
-
 
   const chartData = [
     {
@@ -124,14 +97,6 @@ function Dashboard() {
     },
   ];
 
-  // const generateOptions = () => {
-  //   return metrics.map((metric) => (
-  //     <option key={metric.name} value={metric.name}>
-  //       {metric.name}
-  //     </option>
-  //   ));
-  // };
-
   return (
     <div className="dashboard-wrapper">
       <div className="chart-container">
@@ -143,7 +108,7 @@ function Dashboard() {
               primaryAxis,
               secondaryAxes,
               type: 'bar',
-              defaultColors: ['#ADDF33'],
+              defaultColors: ['#58d675'],
               tooltip: {
                 show: false,
               }
@@ -152,25 +117,6 @@ function Dashboard() {
         </div>
       </div>
       <Form metrics={metrics} />
-      {/* <div className="form-container">
-          <form onSubmit={handleSubmit}>
-            <label>Name:
-              <select value={newDeal.name} onChange={handleChange} name="name">
-                {generateOptions()}
-              </select>
-            </label>
-            <label>Amount: $
-              <input 
-                type="text" 
-                name="value"
-                value={newDeal.value || ""}
-                onChange={handleChange}
-                className="amount-input" 
-              />
-            </label>
-            <button type="submit">Add Deal</button>
-          </form>
-      </div>*/}
     </div> 
   );
 }

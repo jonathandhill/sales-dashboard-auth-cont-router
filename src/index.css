@@ -1,14 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  letter-spacing: -0.5px; /* makes letters closer together */
   color-scheme: light dark;
   color: black;
   background-color: white;
   font-synthesis: none;
-  text-rendering: optimizeLegending;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, textarea, select {
+  font-family: inherit; /* Ensure UI elements inherit Inter */
+}
+
+h2 {
+  letter-spacing: -0.7px; /* Extra tightening for headings */
+  font-weight: 400;
+}
+
+h1 {
+  letter-spacing: -0.7px; /* Extra tightening for headings */
+  font-weight: 600;
 }
 
 header {
@@ -26,7 +43,6 @@ header {
 }
 
 h1 {
-  font-family: 'Open Sans', sans-serif;
   color: white;
   margin: 10px;
   display: flex;
@@ -34,7 +50,6 @@ h1 {
 }
 
 h2 {
-  font-family: 'Open Sans', sans-serif;
   color: #082c1b;
   margin: 0;
   padding: 1rem;
@@ -57,18 +72,18 @@ h2 {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  border: 0.5px ridge;
+  border-radius: 5px;
+  border: 1px solid #e4e4e4;
   flex-grow: 1;
 }
 
 .form-container {
-  background-color: #f9f9f9;
-  width: 93%;
-  border-radius: 20px;
+  background-color: #ffffff;
+  width: 90%;
+  border-radius: 5px;
   margin: 5px auto 20px auto;
-  padding: 3px 0;
-  border: 0.5px ridge;
+  padding: 8px;
+  border: 1px solid #e4e4e4;
   flex-shrink: 0;
 }
 
@@ -81,31 +96,22 @@ form {
 }
 
 label {
-  font-family: 'Open Sans', sans-serif;
   display: flex;
   color: #082c1b;
 }
 
-input {
-  font-family: 'Open Sans', sans-serif;
-  transition: border-color 0.2s ease-in-out !important;
-}
-
 button {
   padding: 7px;
-  border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #FAA23E;
-  color: black;
+  background-color: #124F33;
+  color: rgb(255, 255, 255);
   width: 100px;
-  transition: all 0.2s ease-in-out !important;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
-  background-color: #f7b671;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  background-color: #187c49;
 }
 
 .amount-input {
@@ -116,36 +122,3 @@ button:hover {
 select {
   margin-left: 5px;
 }
-
-/* .auth-container {
-  background-color: #D8D9C6;
-  margin: 11rem auto 0 auto;
-  width: 25rem;
-  border-radius: 30px;
-  position: relative;
-  padding: 20px;
-}
-
-/* Auth UI Components */
-/* .auth-button {
-  transition: all 0.2s ease-in-out !important;
-}
-
-.auth-button:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-}
-
-.auth-input {
-  transition: border-color 0.2s ease-in-out !important;
-}
-
-.auth-input:focus {
-  border-color: #FAA23E !important;
-  box-shadow: 0 0 0 2px rgba(250, 162, 62, 0.2) !important;
-}
-
-.auth-label {
-  font-weight: 500 !important;
-  margin-bottom: 4px !important;
-}  */

@@ -56,7 +56,7 @@ function Form({ metrics }) {
                 className="amount-input" 
               />
             </label>
-            <button type="submit">Add Deal</button>
+            <button>Add Deal</button>
           </form>
         </div>
       );
