@@ -19,9 +19,9 @@ function Form({ metrics }) {
     }
     
       const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setNewDeal(values => ({...values, [name]: value}))
+        const eventName = event.target.name;// The name attribute of the input
+        const eventValue = event.target.value;// The name attribute of the input
+        setNewDeal(prevState => ({...prevState, [eventName]: eventValue}));
       }
     
       const handleSubmit = (event) => {
