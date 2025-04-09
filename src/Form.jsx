@@ -2,7 +2,10 @@ import supabase from './supabase-client';
 import { useState, useEffect } from 'react';
 
 function Form({ metrics }) {
-  const [newDeal, setNewDeal] = useState({});
+  const [newDeal, setNewDeal] = useState({
+    name: '', // Default value for controlled input
+    value: 0  // Default value for controlled input
+  });
 
   useEffect(() => {
     if (metrics && metrics.length > 0) {
