@@ -21,11 +21,18 @@ button, input, textarea, select {
 h2 {
   letter-spacing: -0.7px; /* Extra tightening for headings */
   font-weight: 400;
+  color: #082c1b;
+  margin: 0;
+  padding: 1rem;
 }
 
 h1 {
   letter-spacing: -0.7px; /* Extra tightening for headings */
   font-weight: 600;
+  color: white;
+  margin: 10px;
+  display: flex;
+  align-items: center;
 }
 
 header {
@@ -36,23 +43,11 @@ header {
   left: 0;
   right: 0;
   padding: 2rem 0;
-  height: 4rem;
+  height: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-h1 {
-  color: white;
-  margin: 10px;
-  display: flex;
-  align-items: center;
-}
-
-h2 {
-  color: #082c1b;
-  margin: 0;
-  padding: 1rem;
+  justify-content: center;
 }
 
 .dashboard-wrapper {
@@ -66,7 +61,7 @@ h2 {
   width: 90%;
   height: 65vh;
   background-color: #f9f9f9;
-  margin: 8.5rem auto 10px auto;
+  margin: 6.5rem auto 7px auto;
   padding: 0 10px 20px 10px;
   position: relative;
   overflow: hidden;
@@ -117,8 +112,12 @@ button:hover {
 .amount-input {
   width: 60px;
   margin-left: 2px;
+  background-color: #ffffff;
+  color: black;
 }
 
 select {
   margin-left: 5px;
+  background-color: #ffffff;
+  color: black;
 }
