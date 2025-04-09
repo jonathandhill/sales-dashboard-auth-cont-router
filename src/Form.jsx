@@ -2,17 +2,14 @@ import supabase from './supabase-client';
 import { useState, useEffect } from 'react';
 
 function Form({ metrics }) {
-  const [newDeal, setNewDeal] = useState({ 
-    name: '',
-    value: 0
-  });
+  const [newDeal, setNewDeal] = useState({});
 
   useEffect(() => {
     if (metrics && metrics.length > 0) {
-      setNewDeal(prevState => ({
-        ...prevState,
-        name: metrics[0].name
-      }));
+      setNewDeal({
+        name: metrics[0].name,
+        value: 0
+      });
     }
   }, [metrics]);
 
