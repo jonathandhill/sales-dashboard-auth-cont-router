@@ -1,10 +1,10 @@
 import { Chart } from 'react-charts';
-import supabase from './supabase-client';
+import supabase from '../supabase-client';
 import { useEffect, useState } from 'react';
+import Form from './Form';
 
-function Dashboard() {
+function Dashboard({ setCurrentPage, session }) {
   const [metrics, setMetrics] = useState([]);
-  const [newDeal, setNewDeal] = useState({ name: 'Jim' });
 
   useEffect(() => {
     fetchMetrics();
@@ -23,7 +23,7 @@ function Dashboard() {
           const { new: newRecord } = payload;
           const { name, value } = newRecord;
 
-          fetchMetrics(); // Fetch the latest metrics after an insert event
+          fetchMetrics(); // Fetch the latest metrics after change
         }
       )
       .subscribe();
@@ -46,35 +46,12 @@ function Dashboard() {
       if (error) {
         throw error;
       }
+      console.log(data);
       setMetrics(data);
     } catch (error) {
       console.error('Error fetching metrics:', error);
     }
   }
-
-  async function addDeal() {
-    try {
-      const { error } = await supabase.from('sales_deals').insert(newDeal);
-      if (error) {
-        throw error;
-      }
-    } catch (error) {
-      console.error('Error adding deal: ', error);
-    }
-  }
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setNewDeal((values) => ({ ...values, [name]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(newDeal);
-    addDeal();
-    setNewDeal({ name: 'Jim', value: '' });
-  };
 
   const chartData = [
     {
@@ -113,17 +90,8 @@ function Dashboard() {
     },
   ];
 
-  const generateOptions = () => {
-    return metrics.map((metric) => (
-      <option key={metric.name} value={metric.name}>
-        {metric.name}
-      </option>
-    ));
-  };
-
   return (
-    <div>
-      <h1>Sales Team Dashboard</h1>
+    <div className="dashboard-wrapper">
       <div className="chart-container">
         <h2>Total Sales This Quarter ($)</h2>
         <div style={{ flex: 1 }}>
@@ -133,7 +101,7 @@ function Dashboard() {
               primaryAxis,
               secondaryAxes,
               type: 'bar',
-              defaultColors: ['#75d0c3'],
+              defaultColors: ['#58d675'],
               tooltip: {
                 show: false,
               },
@@ -141,27 +109,7 @@ function Dashboard() {
           />
         </div>
       </div>
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <select value={newDeal.name} onChange={handleChange} name="name">
-              {generateOptions()}
-            </select>
-          </label>
-          <label>
-            Amount: $
-            <input
-              type="text"
-              name="value"
-              value={newDeal.value || ''}
-              onChange={handleChange}
-              className="amount-input"
-            />
-          </label>
-          <button>Add Deal</button>
-        </form>
-      </div>
+      <Form metrics={metrics} />
     </div>
   );
 }

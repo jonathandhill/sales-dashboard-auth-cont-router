@@ -18,7 +18,7 @@ button, input, textarea, select {
   font-family: inherit; /* Ensure UI elements inherit Inter */
 }
 
-h2 {
+.chart-container h2 {
   letter-spacing: -0.7px; /* Extra tightening for headings */
   font-weight: 400;
   color: #082c1b;
@@ -26,13 +26,13 @@ h2 {
   padding: 1rem;
 }
 
-h1 {
+header h1 {
   letter-spacing: -0.7px; /* Extra tightening for headings */
   font-weight: 600;
   color: white;
   margin: 10px;
   display: flex;
-  align-items: center;
+  justify-content: center;
 }
 
 header {
@@ -43,11 +43,9 @@ header {
   left: 0;
   right: 0;
   padding: 2rem 0;
-  height: 2rem;
+  height: 3.6rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .dashboard-wrapper {
@@ -72,7 +70,7 @@ header {
   flex-grow: 1;
 }
 
-.form-container {
+.add-form-container {
   background-color: #ffffff;
   width: 90%;
   border-radius: 5px;
@@ -82,7 +80,7 @@ header {
   flex-shrink: 0;
 }
 
-form {
+.add-form-container form {
   display: flex;
   justify-content: center;
   gap: 40px;
@@ -95,7 +93,7 @@ label {
   color: #082c1b;
 }
 
-button {
+form button {
   padding: 7px;
   border-radius: 5px;
   cursor: pointer;
@@ -120,4 +118,121 @@ select {
   margin-left: 5px;
   background-color: #ffffff;
   color: black;
+}
+
+/* Form styles */
+.form-container {
+  max-width: 28rem;
+  margin: 0 auto;
+  padding-top: 6rem;
+}
+
+.form-title {
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+}
+
+.form-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.form-input {
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: white;
+  transition: border-color 0.25s;
+}
+
+.form-input:focus {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.form-button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6em 1.2em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #124f33;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: rgb(255, 255, 255);
+}
+
+.form-button:hover {
+  background-color: #187c49;
+}
+
+.form-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: var(--error-color);
+  text-align: center;
+  padding-top: 1rem;
+}
+
+/* Dashboard styles */
+.dashboard-container {
+  padding: 2rem;
+}
+
+.dashboard-title {
+  font-size: 2em;
+  line-height: 1.1;
+}
+
+.header-email h2 {
+  margin: 1rem 0;
+}
+
+.header-email {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.header-email button {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  margin-right: 2rem;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.signout-button:hover {
+  border-color: var(--primary-color);
+}
+
+/* App header */
+.app-header {
+  text-align: center;
+  font-size: 3.2em;
+  line-height: 1.1;
+  padding-top: 1rem;
 }
