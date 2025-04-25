@@ -14,25 +14,65 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font-family: inherit; /* Ensure UI elements inherit Inter */
 }
 
 .chart-container h2 {
-  letter-spacing: -0.7px; /* Extra tightening for headings */
-  font-weight: 400;
-  color: #082c1b;
   margin: 0;
   padding: 1rem;
+  color: #082c1b;
+}
+
+h2 {
+  letter-spacing: -0.7px; /* Extra tightening for headings */
+  font-weight: 400;
 }
 
 header h1 {
   letter-spacing: -0.7px; /* Extra tightening for headings */
   font-weight: 600;
   color: white;
-  margin: 10px;
+  margin: 10px 10px 2px 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.header-email h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.header-email {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 0;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.header-email button {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  margin-top: 0rem;
+  margin-right: 2rem;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.header-email button:hover {
+  background-color: grey;
 }
 
 header {
@@ -52,14 +92,13 @@ header {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  margin: 0;
 }
 
 .chart-container {
   width: 90%;
   height: 65vh;
   background-color: #f9f9f9;
-  margin: 6.5rem auto 7px auto;
+  margin: 8.5rem auto 7px auto;
   padding: 0 10px 20px 10px;
   position: relative;
   overflow: hidden;
@@ -93,17 +132,20 @@ label {
   color: #082c1b;
 }
 
-form button {
-  padding: 7px;
+button {
   border-radius: 5px;
   cursor: pointer;
-  background-color: #124F33;
+}
+
+form button {
+  padding: 7px;
+  background-color: #124f33;
   color: rgb(255, 255, 255);
   width: 100px;
   transition: background-color 0.2s ease;
 }
 
-button:hover {
+form button:hover {
   background-color: #187c49;
 }
 
@@ -133,13 +175,13 @@ select {
 }
 
 .form-link {
-  color: var(--primary-color);
+  color: #187c49;
   text-decoration: none;
   cursor: pointer;
 }
 
 .form-link:hover {
-  color: var(--primary-hover);
+  color: grey;
   text-decoration: underline;
 }
 
@@ -190,47 +232,10 @@ select {
   cursor: not-allowed;
 }
 
-.error-message {
-  color: var(--error-color);
-  text-align: center;
-  padding-top: 1rem;
-}
 
-/* Dashboard styles */
-.dashboard-container {
-  padding: 2rem;
-}
 
-.dashboard-title {
-  font-size: 2em;
-  line-height: 1.1;
-}
-
-.header-email h2 {
-  margin: 1rem 0;
-}
-
-.header-email {
-  display: flex;
-  justify-content: flex-end;
-  gap: 2rem;
-}
-
-.header-email button {
-  display: inline-block;
-  padding: 0.75rem 1rem;
-  margin-top: 1rem;
-  margin-right: 2rem;
-  border: 1px solid;
-  cursor: pointer;
-}
-
-.signout-button:hover {
-  border-color: var(--primary-color);
-}
-
-/* App header */
-.app-header {
+/* landing header */
+.landing-header {
   text-align: center;
   font-size: 3.2em;
   line-height: 1.1;

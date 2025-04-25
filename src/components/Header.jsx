@@ -35,11 +35,9 @@ function Header({ signOut, session }) {
           Sales Team Dashboard
         </h1>
         <div className="header-email">
-          <h2>{session?.user?.email}</h2>
-          <button onClick={handleSignOut}>
-            Sign out
-          </button>
           {error && <p className="error-message">{error}</p>}
+          <h2>{session?.user?.email}</h2>
+          <button onClick={handleSignOut}>Sign out</button>
         </div>
       </header>
     </>

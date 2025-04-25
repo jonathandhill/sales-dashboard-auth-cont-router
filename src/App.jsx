@@ -32,7 +32,7 @@ function App() {
   if (!session) {
     return (
       <>
-        <h1 className="app-header">Paper Like A Boss</h1>
+        <h1 className="landing-header">Paper Like A Boss</h1>
         <div
           className="form-container"
           style={{
