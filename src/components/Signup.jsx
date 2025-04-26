@@ -1,46 +1,11 @@
 import React, { useState } from 'react';
-import supabase from '../supabase-client';
+import { UserAuth } from '../context/AuthContext';
 
-const Signup = ({ setCurrentPage }) => {
+const Signup = ({ setShowSignup }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const signUpNewUser = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: email.toLowerCase(),
-      password: password,
-    });
-
-    if (error) {
-      console.error('Error signing up: ', error);
-      return { success: false, error };
-    }
-
-    return { success: true, data };
-  };
-
-  const signInUser = async (email, password) => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.toLowerCase(),
-        password: password,
-      });
-
-      if (error) {
-        console.error('Sign-in error:', error.message);
-        return { success: false, error: error.message };
-      }
-
-      console.log('Sign-in success:', data);
-      return { success: true, data };
-    } catch (error) {
-      console.error('Unexpected error during sign-in:', error.message);
-      return {
-        success: false,
-        error: 'An unexpected error occurred. Please try again.',
-      };
-    }
-  };
+  const { signUpNewUser, signInUser } = UserAuth();
 
   const handleSignUp = async (formData) => {
     setLoading(true);
@@ -73,7 +38,7 @@ const Signup = ({ setCurrentPage }) => {
       <h2 className="form-title">Sign up today!</h2>
       <p>
         Already have an account?{' '}
-        <span onClick={() => setCurrentPage('signin')} className="form-link">
+        <span onClick={() => setShowSignup(false)} className="form-link">
           Sign in
         </span>
       </p>

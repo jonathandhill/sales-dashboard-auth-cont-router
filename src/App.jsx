@@ -1,33 +1,13 @@
-import { useState, useEffect } from 'react';
-import Dashboard from "./components/Dashboard";
-import Header from "./components/Header";
+import { useState } from 'react';
+import Dashboard from './components/Dashboard';
+import Header from './components/Header';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
-import supabase from './supabase-client';
+import { UserAuth } from './context/AuthContext';
 
 function App() {
-  const [session, setSession] = useState(undefined);
-  const [currentPage, setCurrentPage] = useState('signin');
-
-  // Initialize session
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
-
-  // Sign out function
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
+  const [showSignup, setShowSignup] = useState(false);
+  const { session } = UserAuth();
 
   if (!session) {
     return (
@@ -41,28 +21,22 @@ function App() {
             borderRadius: '8px',
           }}
         >
-          {currentPage === 'signin' ? (
-            <Signin setCurrentPage={setCurrentPage} />
+          {showSignup ? (
+            <Signup setShowSignup={setShowSignup} />
           ) : (
-            <Signup setCurrentPage={setCurrentPage} />
+            <Signin setShowSignup={setShowSignup} />
           )}
         </div>
       </>
     );
   }
+
   return (
     <>
-      <Header signOut={signOut} session={session} />
-      <Dashboard 
-        setCurrentPage={setCurrentPage}
-        session={session}
-      />
+      <Header />
+      <Dashboard />
     </>
   );
-
-
-
-  
 }
 
 export default App;

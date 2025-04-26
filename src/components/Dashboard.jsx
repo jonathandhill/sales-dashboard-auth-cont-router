@@ -3,7 +3,7 @@ import supabase from '../supabase-client';
 import { useEffect, useState } from 'react';
 import Form from './Form';
 
-function Dashboard({ setCurrentPage, session }) {
+function Dashboard() {
   const [metrics, setMetrics] = useState([]);
 
   useEffect(() => {

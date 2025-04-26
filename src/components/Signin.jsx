@@ -1,32 +1,10 @@
 import React, { useState } from 'react';
-import supabase from '../supabase-client';
+import { UserAuth } from '../context/AuthContext';
 
-const Signin = ({ setCurrentPage }) => {
+const Signin = ({ setShowSignup }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const signInUser = async (email, password) => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.toLowerCase(),
-        password: password,
-      });
-
-      if (error) {
-        console.error('Sign-in error:', error.message);
-        return { success: false, error: error.message };
-      }
-
-      console.log('Sign-in success:', data);
-      return { success: true, data };
-    } catch (error) {
-      console.error('Unexpected error during sign-in:', error.message);
-      return {
-        success: false,
-        error: 'An unexpected error occurred. Please try again.',
-      };
-    }
-  };
+  const { signInUser } = UserAuth();
 
   const handleSignIn = async (formData) => {
     setLoading(true);
@@ -57,7 +35,7 @@ const Signin = ({ setCurrentPage }) => {
       <h2 className="form-title">Sign in</h2>
       <p>
         Don't have an account yet?{' '}
-        <span onClick={() => setCurrentPage('signup')} className="form-link">
+        <span onClick={() => setShowSignup(true)} className="form-link">
           Sign up
         </span>
       </p>

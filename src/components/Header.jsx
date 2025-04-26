@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { UserAuth } from "../context/AuthContext";
 
-function Header({ signOut, session }) {
+function Header() {
   const [error, setError] = useState(null);
+
+  const { session, signOut } = UserAuth();
 
   const handleSignOut = async (e) => {
     e.preventDefault();
