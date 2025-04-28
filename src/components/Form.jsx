@@ -47,9 +47,6 @@ function Form({ metrics }) {
   };
 
   const generateOptions = () => {
-    // if (!metrics || metrics.length === 0) {
-    //   return <option value="">No names available</option>;
-    // }
     return metrics.map((metric) => (
       <option key={metric.name} value={metric.name}>
         {metric.name}

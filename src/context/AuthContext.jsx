@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import supabase from "../supabase-client";
+import { createContext, useContext, useEffect, useState } from 'react';
+import supabase from '../supabase-client';
 
 const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
     });
 
     if (error) {
-      console.error("Error signing up: ", error);
+      console.error('Error signing up: ', error);
       return { success: false, error };
     }
 
@@ -31,19 +31,19 @@ export const AuthContextProvider = ({ children }) => {
 
       // Handle Supabase error explicitly
       if (error) {
-        console.error("Sign-in error:", error.message); // Log the error for debugging
+        console.error('Sign-in error:', error.message); // Log the error for debugging
         return { success: false, error: error.message }; // Return the error
       }
 
       // If no error, return success
-      console.log("Sign-in success:", data);
+      console.log('Sign-in success:', data);
       return { success: true, data }; // Return the user data
     } catch (error) {
       // Handle unexpected issues
-      console.error("Unexpected error during sign-in:", err.message);
+      console.error('Unexpected error during sign-in:', err.message);
       return {
         success: false,
-        error: "An unexpected error occurred. Please try again.",
+        error: 'An unexpected error occurred. Please try again.',
       };
     }
   };
@@ -62,7 +62,7 @@ export const AuthContextProvider = ({ children }) => {
   async function signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      console.error("Error signing out:", error);
+      console.error('Error signing out:', error);
     }
   }
 
