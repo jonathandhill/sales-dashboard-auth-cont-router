@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const { session, signOut } = UserAuth();
 
   const handleSignOut = async (e) => {
@@ -11,7 +12,7 @@ function Header() {
 
     try {
       await signOut();
-      setCurrentPage('signin');
+      navigate('/');
     } catch (err) {
       setError('An unexpected error occurred.');
     }
@@ -31,8 +32,8 @@ function Header() {
             <path
               d="M12 2v8M12 14v8M4.93 4.93l5.66 5.66M13.41 13.41l5.66 5.66M2 12h8M14 12h8M4.93 19.07l5.66-5.66M13.41 10.59l5.66-5.66"
               stroke="#29d952"
-              stroke-width="2.5"
-              stroke-linecap="round"
+              strokeWidth="2.5"
+              strokeLinecap="round"
             />
           </svg>
           Sales Team Dashboard

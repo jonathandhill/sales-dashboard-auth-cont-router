@@ -163,10 +163,13 @@ select {
 }
 
 /* Form styles */
-.form-container {
+.sign-form-container {
   max-width: 28rem;
   margin: 0 auto;
   padding-top: 6rem;
+  border: 1px solid #ccc;
+  padding: 2rem;
+  border-radius: 8px;
 }
 
 .form-title {
@@ -231,8 +234,6 @@ select {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-
 
 /* landing header */
 .landing-header {

@@ -1,5 +1,5 @@
-import { UserAuth } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { UserAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
   const { session } = UserAuth();
@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return <div>{session ? <>{children}</> : <Navigate to="/signup" />}</div>;
+  return <div>{session ? <>{children}</> : <Navigate to="/" />}</div>;
 };
 
 export default PrivateRoute;
