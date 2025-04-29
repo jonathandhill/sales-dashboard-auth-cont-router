@@ -22,7 +22,7 @@ function Dashboard() {
         (payload) => {
           console.log(payload);
           const { new: newRecord } = payload;
-          const { name, value } = newRecord;
+          // const { name, value } = newRecord;
 
           fetchMetrics(); // Fetch the latest metrics after change
         }

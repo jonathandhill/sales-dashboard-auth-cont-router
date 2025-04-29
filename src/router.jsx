@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Dashboard from './routes/Dashboard';
-import PrivateRoute from './components/PrivateRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +16,9 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: (
-      <PrivateRoute>
+      <ProtectedRoute>
         <Dashboard />
-      </PrivateRoute>
+      </ProtectedRoute>
     ),
   },
 ]);

@@ -49,9 +49,16 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    async function getInitialSession() {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Error getting session:', error);
+        return;
+      }
+      setSession(data.session);
+    }
+
+    getInitialSession();
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
