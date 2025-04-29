@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import supabase from '../supabase-client';
 
+// Create the AuthContext
 const AuthContext = createContext();
 
+// Provide the AuthContext to the children
 export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState(undefined);
 
@@ -49,6 +51,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    //Get initial session
     async function getInitialSession() {
       const { data, error } = await supabase.auth.getSession();
       if (error) {
@@ -60,6 +63,7 @@ export const AuthContextProvider = ({ children }) => {
 
     getInitialSession();
 
+    //Listen for session changes
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
@@ -74,6 +78,7 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   return (
+    // Provide the AuthContext to the children
     <AuthContext.Provider
       value={{ signUpNewUser, signInUser, session, signOut }}
     >
@@ -82,6 +87,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
+// Custom hook to access the AuthContext
 export const UserAuth = () => {
   return useContext(AuthContext);
 };

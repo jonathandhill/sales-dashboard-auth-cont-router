@@ -172,29 +172,29 @@ select {
   border-radius: 8px;
 }
 
-.form-title {
+.sign-form-container h2 {
   font-weight: bold;
   padding-bottom: 0.5rem;
 }
 
-.form-link {
+.sign-form-container .form-link {
   color: #187c49;
   text-decoration: none;
   cursor: pointer;
 }
 
-.form-link:hover {
-  color: grey;
+.sign-form-container .form-link:hover {
+  color: #60b488;
   text-decoration: underline;
 }
 
-.form-group {
+.sign-form-container .form-group {
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
 }
 
-.form-input {
+.sign-form-container .form-input {
   padding: 0.75rem;
   margin-top: 0.5rem;
   border: 1px solid transparent;
@@ -207,11 +207,11 @@ select {
   transition: border-color 0.25s;
 }
 
-.form-input:focus {
+.sign-form-container .form-input:focus {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.form-button {
+.sign-form-container .form-button {
   width: 100%;
   margin-top: 1rem;
   padding: 0.6em 1.2em;
@@ -226,11 +226,11 @@ select {
   color: rgb(255, 255, 255);
 }
 
-.form-button:hover {
+.sign-form-container .form-button:hover {
   background-color: #187c49;
 }
 
-.form-button:disabled {
+.sign-form-container .form-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -241,4 +241,5 @@ select {
   font-size: 3.2em;
   line-height: 1.1;
   padding-top: 1rem;
+  color: #124f33;
 }

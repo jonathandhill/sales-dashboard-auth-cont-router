@@ -36,7 +36,7 @@ const Signup = () => {
         <form action={handleSignUp}>
           <h2 className="form-title">Sign up today!</h2>
           <p>
-            Already have an account? <Link to="/">Sign in</Link>
+            Already have an account? <Link className="form-link" to="/">Sign in</Link>
           </p>
           <div className="form-group">
             <input

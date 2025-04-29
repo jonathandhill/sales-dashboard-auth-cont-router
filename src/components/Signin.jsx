@@ -40,7 +40,7 @@ const Signin = () => {
         <form action={handleSignIn}>
           <h2 className="form-title">Sign in</h2>
           <p>
-            Don't have an account yet? <Link to="/signup">Sign up</Link>
+            Don't have an account yet? <Link className="form-link" to="/signup">Sign up</Link>
           </p>
           <div className="form-group">
             {/* <label htmlFor="Email">Email</label> */}
