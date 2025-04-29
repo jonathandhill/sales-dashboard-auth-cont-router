@@ -3,19 +3,33 @@ import { UserAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { signInUser } = UserAuth();
   const navigate = useNavigate();
 
-  const handleSignIn = async (formData) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError(null); // Clear any previous errors
-    const email = formData.get('email');
-    const password = formData.get('password');
 
     try {
-      const { success, data, error } = await signInUser(email, password);
+      const { success, data, error } = await signInUser(
+        formData.email,
+        formData.password
+      );
 
       if (error) {
         console.log('Supabase sign in error: ', error);
@@ -23,6 +37,7 @@ const Signin = () => {
         return;
       }
       if (success && data?.session) {
+        console.log(data);
         navigate('/dashboard');
       }
     } catch (err) {
@@ -37,10 +52,13 @@ const Signin = () => {
     <>
       <h1 className="landing-header">Paper Like A Boss</h1>
       <div className="sign-form-container">
-        <form action={handleSignIn}>
+        <form onSubmit={handleSubmit}>
           <h2 className="form-title">Sign in</h2>
           <p>
-            Don't have an account yet? <Link className="form-link" to="/signup">Sign up</Link>
+            Don't have an account yet?{' '}
+            <Link className="form-link" to="/signup">
+              Sign up
+            </Link>
           </p>
           <div className="form-group">
             {/* <label htmlFor="Email">Email</label> */}
@@ -50,6 +68,8 @@ const Signin = () => {
               name="email"
               id="email"
               placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
               required
             />
           </div>
@@ -61,6 +81,8 @@ const Signin = () => {
               name="password"
               id="password"
               placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
               required
             />
           </div>
