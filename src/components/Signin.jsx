@@ -37,7 +37,6 @@ const Signin = () => {
         return;
       }
       if (success && data?.session) {
-        console.log(data);
         navigate('/dashboard');
       }
     } catch (err) {
