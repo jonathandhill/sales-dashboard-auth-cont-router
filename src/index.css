@@ -149,6 +149,11 @@ form button:hover {
   background-color: #187c49;
 }
 
+form button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
 .amount-input {
   width: 60px;
   margin-left: 2px;
@@ -160,6 +165,29 @@ select {
   margin-left: 5px;
   background-color: #ffffff;
   color: black;
+}
+
+select:disabled,
+input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.error-message {
+  color: #dc3545;
+  border-radius: 4px;
+  background-color: #f8d7da;
 }
 
 /* Form styles */

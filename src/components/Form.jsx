@@ -1,50 +1,26 @@
 import supabase from '../supabase-client';
-import { useState, useEffect } from 'react';
+import { useActionState } from 'react';
 
 function Form({ metrics }) {
-  const [newDeal, setNewDeal] = useState({ 
-    name: '',
-    value: 0
-  });
+  const [error, submitAction, isPending] = useActionState(
+    async (previousState, formData) => {
+      const newDeal = {
+        name: formData.get('name'),
+        value: formData.get('value'),
+      };
 
-  useEffect(() => {
-    if (metrics && metrics.length > 0) {
-      setNewDeal({
-        name: metrics[0].name,
-        value: 0
-      });
-    }
-  }, [metrics]);
-
-  async function addDeal() {
-    try {
-      const { error } = await supabase
+      const { error: supabaseError } = await supabase
         .from('sales_deals')
         .insert(newDeal);
-      if (error) {
-        throw error;
+
+      if (supabaseError) {
+        console.error('Error adding deal: ', supabaseError);
+        return new Error('Failed to add deal');
       }
-    } catch (error) {
-      console.error("Error adding deal: ", error);
-    }  
-  }
-
-  const handleChange = (event) => {
-    const eventName = event.target.name;
-    const eventValue = event.target.value;
-    
-    setNewDeal(prevState => ({...prevState, [eventName]: eventValue}));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(newDeal);
-    addDeal();
-    setNewDeal({ 
-      name: metrics[0].name,
-      value: 0 
-    });
-  };
+      return null;
+    },
+    null
+  );
 
   const generateOptions = () => {
     return metrics.map((metric) => (
@@ -56,27 +32,57 @@ function Form({ metrics }) {
 
   return (
     <div className="add-form-container">
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form
+        action={submitAction}
+        aria-label="Add new sales deal"
+        aria-describedby="form-description"
+      >
+        <div id="form-description" className="sr-only">
+          Use this form to add a new sales deal. Select a deal type and enter
+          the amount.
+        </div>
+
+        <label htmlFor="deal-name">
           Name:
-          <select value={newDeal.name} onChange={handleChange} name="name">
+          <select
+            id="deal-name"
+            name="name"
+            defaultValue={metrics?.[0]?.name || ''}
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            disabled={isPending}
+          >
             {generateOptions()}
           </select>
         </label>
-        <label>
+
+        <label htmlFor="deal-value">
           Amount: $
           <input
+            id="deal-value"
             type="number"
             name="value"
-            value={newDeal.value}
-            onChange={handleChange}
+            defaultValue={0}
             className="amount-input"
             min="0"
             step="10"
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-label="Deal amount in dollars"
+            disabled={isPending}
           />
         </label>
-        <button>Add Deal</button>
+
+        <button type="submit" disabled={isPending} aria-busy={isPending}>
+          {isPending ? 'Adding...' : 'Add Deal'}
+        </button>
       </form>
+
+      {error && (
+        <div role="alert" className="error-message">
+          {error.message}
+        </div>
+      )}
     </div>
   );
 }
