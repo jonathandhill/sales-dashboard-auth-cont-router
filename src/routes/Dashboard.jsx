@@ -94,8 +94,16 @@ function Dashboard() {
   return (
     <>
       <Header />
-      <div className="dashboard-wrapper">
-        <div className="chart-container">
+      <div 
+        className="dashboard-wrapper"
+        role="region"
+        aria-label="Sales dashboard"
+      >
+        <div
+          className="chart-container"
+          role="region"
+          aria-label="Sales chart and data"
+        >
           <h2>Total Sales This Quarter ($)</h2>
           <div style={{ flex: 1 }}>
             <Chart

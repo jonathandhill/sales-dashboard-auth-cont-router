@@ -1,57 +1,55 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { UserAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { useActionState } from 'react';
 
 const Signin = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const { signInUser } = UserAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [error, submitAction, isPending] = useActionState(
+    async (previousState, formData) => {
+      try {
+        const email = formData.get('email');
+        const password = formData.get('password');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null); // Clear any previous errors
+        const {
+          success,
+          data,
+          error: signInError,
+        } = await signInUser(email, password);
 
-    try {
-      const { success, data, error } = await signInUser(
-        formData.email,
-        formData.password
-      );
+        if (signInError) {
+          console.log('Supabase sign in error: ', signInError);
+          return new Error(signInError);
+        }
 
-      if (error) {
-        console.log('Supabase sign in error: ', error);
-        setError(error);
-        return;
+        if (success && data?.session) {
+          navigate('/dashboard');
+        }
+        return null;
+      } catch (err) {
+        console.error('Sign in error: ', err);
+        return new Error('An unexpected error occurred. Please try again.');
       }
-      if (success && data?.session) {
-        navigate('/dashboard');
-      }
-    } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
-      console.error('Sign in error: ', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    null
+  );
 
   return (
     <>
       <h1 className="landing-header">Paper Like A Boss</h1>
       <div className="sign-form-container">
-        <form onSubmit={handleSubmit}>
+        <form
+          action={submitAction}
+          aria-label="Sign in form"
+          aria-describedby="form-description"
+        >
+          <div id="form-description" className="sr-only">
+            Use this form to sign in to your account. Enter your email and
+            password.
+          </div>
+
           <h2 className="form-title">Sign in</h2>
           <p>
             Don't have an account yet?{' '}
@@ -59,36 +57,49 @@ const Signin = () => {
               Sign up
             </Link>
           </p>
-          <div className="form-group">
-            {/* <label htmlFor="Email">Email</label> */}
-            <input
-              className="form-input"
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            {/* <label htmlFor="Password">Password</label> */}
-            <input
-              className="form-input"
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" disabled={loading} className="form-button">
-            {loading ? 'Signing in...' : 'Sign In'}
+
+          <label htmlFor="email">Email</label>
+          <input
+            className="form-input"
+            type="email"
+            name="email"
+            id="email"
+            placeholder=""
+            required
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? 'signin-error' : undefined}
+            disabled={isPending}
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            className="form-input"
+            type="password"
+            name="password"
+            id="password"
+            placeholder=""
+            required
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? 'signin-error' : undefined}
+            disabled={isPending}
+          />
+
+          <button
+            type="submit"
+            disabled={isPending}
+            className="form-button"
+            aria-busy={isPending}
+          >
+            {isPending ? 'Signing in...' : 'Sign In'}
           </button>
-          {error && <p className="error-message">{error}</p>}
+
+          {error && (
+            <div id="signin-error" role="alert" className="error-message">
+              {error.message}
+            </div>
+          )}
         </form>
       </div>
     </>

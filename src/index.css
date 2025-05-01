@@ -196,13 +196,14 @@ input:disabled {
   margin: 0 auto;
   padding-top: 6rem;
   border: 1px solid #ccc;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 8px;
 }
 
 .sign-form-container h2 {
   font-weight: bold;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
+  margin: 0;
 }
 
 .sign-form-container .form-link {
@@ -216,15 +217,11 @@ input:disabled {
   text-decoration: underline;
 }
 
-.sign-form-container .form-group {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0;
-}
-
 .sign-form-container .form-input {
-  padding: 0.75rem;
-  margin-top: 0.5rem;
+  width: 94%;
+  margin: 1.5rem 0;
+  padding: 0.6rem;
+  margin-top: 0.2rem;
   border: 1px solid transparent;
   border-radius: 8px;
   font-size: 1em;
