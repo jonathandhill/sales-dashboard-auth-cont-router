@@ -8,18 +8,19 @@ function Form({ metrics }) {
         name: formData.get('name'),
         value: formData.get('value'),
       };
+      console.log('newDeal', newDeal);
 
-      const { error: supabaseError } = await supabase
+      const { error } = await supabase
         .from('sales_deals')
         .insert(newDeal);
 
-      if (supabaseError) {
-        console.error('Error adding deal: ', supabaseError);
-        return new Error('Failed to add deal');
+      if (error) {
+        console.error('Error adding deal: ', error);
+        return new Error('Failed to add deal'); // Return error state
       }
-      return null;
+      return null; // Return success state
     },
-    null
+    null // Initial state
   );
 
   const generateOptions = () => {
@@ -38,7 +39,7 @@ function Form({ metrics }) {
         aria-describedby="form-description"
       >
         <div id="form-description" className="sr-only">
-          Use this form to add a new sales deal. Select a deal type and enter
+          Use this form to add a new sales deal. Select a sales rep and enter
           the amount.
         </div>
 
