@@ -17,16 +17,16 @@ const Signup = () => {
 
         if (result.success) {
           navigate('/dashboard');
-          return null;
+          return null; // Return success state
         } else {
-          return new Error(result.error.message);
+          return new Error(result.error.message); 
         }
       } catch (err) {
         console.error('Sign up error: ', err);
         return new Error('An unexpected error occurred. Please try again.');
       }
     },
-    null
+    null // Initial state
   );
 
   return (
@@ -89,7 +89,7 @@ const Signup = () => {
           </button>
 
           {error && (
-            <div id="signup-error" role="alert" className="error-message">
+            <div id="signup-error" role="alert" className="sign-form-error-message">
               {error.message}
             </div>
           )}

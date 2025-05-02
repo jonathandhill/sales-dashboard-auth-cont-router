@@ -26,14 +26,16 @@ const Signin = () => {
 
         if (success && data?.session) {
           navigate('/dashboard');
+          return null;
         }
-        return null;
+
+        return null; // Handles any other case, if needed
       } catch (err) {
         console.error('Sign in error: ', err);
         return new Error('An unexpected error occurred. Please try again.');
       }
     },
-    null
+    null // Initial state
   );
 
   return (
@@ -96,7 +98,11 @@ const Signin = () => {
           </button>
 
           {error && (
-            <div id="signin-error" role="alert" className="error-message">
+            <div
+              id="signin-error"
+              role="alert"
+              className="sign-form-error-message"
+            >
               {error.message}
             </div>
           )}

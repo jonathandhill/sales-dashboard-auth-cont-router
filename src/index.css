@@ -100,7 +100,7 @@ header h1 {
   border-color: #e0e0e0;
 }
 
-.error-message {
+.header-email .error-message {
   color: red;
   text-align: center;
   margin: 0;
@@ -203,10 +203,10 @@ input:disabled {
   border: 0;
 }
 
-.error-message {
+.sign-form-error-message {
   color: #dc3545;
   border-radius: 4px;
-  background-color: #f8d7da;
+  text-align: center;
 }
 
 /* Form styles */
