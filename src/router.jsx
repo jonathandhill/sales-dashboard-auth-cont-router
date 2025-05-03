@@ -3,7 +3,7 @@ import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Dashboard from './routes/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import Header from './components/Header';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -17,6 +17,7 @@ export const router = createBrowserRouter([
     path: '/dashboard',
     element: (
       <ProtectedRoute>
+        <Header />
         <Dashboard />
       </ProtectedRoute>
     ),

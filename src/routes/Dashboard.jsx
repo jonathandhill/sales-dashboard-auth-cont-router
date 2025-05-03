@@ -1,6 +1,5 @@
 import { Chart } from 'react-charts';
 import supabase from '../supabase-client';
-import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import Form from '../components/Form';
 
@@ -92,37 +91,34 @@ function Dashboard() {
   ];
 
   return (
-    <>
-      <Header />
-      <div 
-        className="dashboard-wrapper"
+    <div 
+      className="dashboard-wrapper"
+      role="region"
+      aria-label="Sales dashboard"
+    >
+      <div
+        className="chart-container"
         role="region"
-        aria-label="Sales dashboard"
+        aria-label="Sales chart and data"
       >
-        <div
-          className="chart-container"
-          role="region"
-          aria-label="Sales chart and data"
-        >
-          <h2>Total Sales This Quarter ($)</h2>
-          <div style={{ flex: 1 }}>
-            <Chart
-              options={{
-                data: chartData,
-                primaryAxis,
-                secondaryAxes,
-                type: 'bar',
-                defaultColors: ['#58d675'],
-                tooltip: {
-                  show: false,
-                },
-              }}
-            />
-          </div>
+        <h2>Total Sales This Quarter ($)</h2>
+        <div style={{ flex: 1 }}>
+          <Chart
+            options={{
+              data: chartData,
+              primaryAxis,
+              secondaryAxes,
+              type: 'bar',
+              defaultColors: ['#58d675'],
+              tooltip: {
+                show: false,
+              },
+            }}
+          />
         </div>
-        <Form metrics={metrics} />
       </div>
-    </>
+      <Form metrics={metrics} />
+    </div>
   );
 }
 
