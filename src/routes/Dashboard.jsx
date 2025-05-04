@@ -91,7 +91,7 @@ function Dashboard() {
   ];
 
   return (
-    <div 
+    <div
       className="dashboard-wrapper"
       role="region"
       aria-label="Sales dashboard"

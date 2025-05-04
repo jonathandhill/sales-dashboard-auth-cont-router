@@ -10,9 +10,7 @@ function Form({ metrics }) {
       };
       console.log('newDeal', newDeal);
 
-      const { error } = await supabase
-        .from('sales_deals')
-        .insert(newDeal);
+      const { error } = await supabase.from('sales_deals').insert(newDeal);
 
       if (error) {
         console.error('Error adding deal: ', error);
@@ -74,7 +72,12 @@ function Form({ metrics }) {
           />
         </label>
 
-        <button type="submit" disabled={isPending} aria-busy={isPending}>
+        <button
+          className="add-deal-button"
+          type="submit"
+          disabled={isPending}
+          aria-busy={isPending}
+        >
           {isPending ? 'Adding...' : 'Add Deal'}
         </button>
       </form>

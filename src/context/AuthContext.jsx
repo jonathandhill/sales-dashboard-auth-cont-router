@@ -87,7 +87,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
-// Custom hook to access the AuthContext
+// Custom hook to access/subscribe the AuthContext
 export const UserAuth = () => {
   return useContext(AuthContext);
 };

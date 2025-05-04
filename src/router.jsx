@@ -4,6 +4,7 @@ import Signup from './components/Signup';
 import Dashboard from './routes/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Header';
+
 export const router = createBrowserRouter([
   {
     path: '/',
