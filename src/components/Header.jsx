@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { UserAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { session, signOut } = UserAuth();
+  const { session, signOut } = useAuth();
 
   const handleSignOut = async (e) => {
     e.preventDefault();

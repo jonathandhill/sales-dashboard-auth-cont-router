@@ -5,7 +5,7 @@ import supabase from '../supabase-client';
 const AuthContext = createContext();
 
 // Provide the AuthContext to the children
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => { //extracting children from props
   const [session, setSession] = useState(undefined);
 
   // Sign up
@@ -88,6 +88,6 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 // Custom hook to access/subscribe the AuthContext
-export const UserAuth = () => {
+export const useAuth = () => {
   return useContext(AuthContext);
 };

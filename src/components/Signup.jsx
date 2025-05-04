@@ -1,10 +1,10 @@
 import React from 'react';
-import { UserAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useActionState } from 'react';
 
 const Signup = () => {
-  const { signUpNewUser } = UserAuth();
+  const { signUpNewUser } = useAuth();
   const navigate = useNavigate();
 
   const [error, submitAction, isPending] = useActionState(
