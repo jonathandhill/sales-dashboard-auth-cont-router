@@ -19,7 +19,7 @@ const Signup = () => {
           navigate('/dashboard');
           return null; // Return success state
         } else {
-          return new Error(result.error.message); 
+          return new Error(result.error.message);
         }
       } catch (err) {
         console.error('Sign up error: ', err);
@@ -79,6 +79,23 @@ const Signup = () => {
             disabled={isPending}
           />
 
+          <fieldset
+            className="form-fieldset"
+            aria-required="true"
+            aria-label="Select your role"
+          >
+            <legend>Select your role</legend>
+            <div className="radio-group">
+              <label>
+                <input type="radio" name="role" value="admin" required /> Admin
+              </label>
+              <label>
+                <input type="radio" name="role" value="rep" required /> Sales
+                Rep
+              </label>
+            </div>
+          </fieldset>
+
           <button
             type="submit"
             disabled={isPending}
@@ -89,7 +106,11 @@ const Signup = () => {
           </button>
 
           {error && (
-            <div id="signup-error" role="alert" className="sign-form-error-message">
+            <div
+              id="signup-error"
+              role="alert"
+              className="sign-form-error-message"
+            >
               {error.message}
             </div>
           )}
