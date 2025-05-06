@@ -5,22 +5,31 @@ import supabase from '../supabase-client';
 const AuthContext = createContext();
 
 // Provide the AuthContext to the children
-export const AuthContextProvider = ({ children }) => { //extracting children from props
+export const AuthContextProvider = ({ children }) => {
+  //extracting children from props
   const [session, setSession] = useState(undefined);
 
   // Sign up
   const signUpNewUser = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: email.toLowerCase(),
-      password: password,
-    });
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email.toLowerCase(),
+        password: password,
+      });
 
-    if (error) {
-      console.error('Error signing up: ', error);
-      return { success: false, error };
+      if (error) {
+        console.error('Supabase sign-up error:', error.message);
+        return { success: false, error: error.message };
+      }
+
+      return { success: true, data };
+    } catch (error) {
+      console.error('Unexpected error during sign-up:', error.message);
+      return {
+        success: false,
+        error: 'An unexpected error occurred. Please try again.',
+      };
     }
-
-    return { success: true, data };
   };
 
   // Sign in
@@ -33,7 +42,7 @@ export const AuthContextProvider = ({ children }) => { //extracting children fro
 
       // Handle Supabase error explicitly
       if (error) {
-        console.error('Sign-in error:', error.message); // Log the error for debugging
+        console.error('Supabase sign-in error:', error.message); // Log the error for debugging
         return { success: false, error: error.message }; // Return the error
       }
 

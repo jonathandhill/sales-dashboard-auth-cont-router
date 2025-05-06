@@ -20,7 +20,7 @@ const Signin = () => {
         } = await signInUser(email, password);
 
         if (signInError) {
-          console.log('Supabase sign in error: ', signInError);
+          //Error would be logged in the AuthContext
           return new Error(signInError);
         }
 

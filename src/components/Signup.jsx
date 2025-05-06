@@ -13,14 +13,23 @@ const Signup = () => {
       const password = formData.get('password');
       
       try {  
-        const result = await signUpNewUser(email, password);
+        const {
+          success,
+          data,
+          error: signUpError,
+        } = await signUpNewUser(email, password);
 
-        if (result.success) {
+        if (signUpError) {
+          //Error would be logged in the AuthContext
+          return new Error(signUpError);
+        }
+
+        if (success && data?.session) {
           navigate('/dashboard');
           return null; // Return success state
-        } else {
-          return new Error(result.error.message);
         }
+
+        return null; // Handles any other case, if needed 
       } catch (err) {
         console.error('Sign up error: ', err);
         return new Error('An unexpected error occurred. Please try again.');
