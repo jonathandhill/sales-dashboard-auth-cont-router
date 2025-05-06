@@ -9,10 +9,10 @@ const Signin = () => {
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
+      const email = formData.get('email');
+      const password = formData.get('password');
+      
       try {
-        const email = formData.get('email');
-        const password = formData.get('password');
-
         const {
           success,
           data,

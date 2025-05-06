@@ -9,10 +9,10 @@ const Signup = () => {
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
-      try {
-        const email = formData.get('email');
-        const password = formData.get('password');
-
+      const email = formData.get('email');
+      const password = formData.get('password');
+      
+      try {  
         const result = await signUpNewUser(email, password);
 
         if (result.success) {

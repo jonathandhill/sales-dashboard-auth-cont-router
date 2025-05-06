@@ -218,7 +218,7 @@ input:disabled {
   margin: 0 auto;
   padding: 2.5rem;
   border: 1px solid #e4e4e4;
-  border-radius: 16px;
+  border-radius: 5px;
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -256,7 +256,7 @@ input:disabled {
   margin: 1rem 0;
   padding: 0.8rem 1rem;
   border: 1.5px solid #e4e4e4;
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: 1rem;
   font-weight: 400;
   background-color: white;
@@ -273,7 +273,7 @@ input:disabled {
 
 .sign-form-container fieldset {
   border: 1.5px solid #e4e4e4;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 0.6rem;
 }
 
@@ -283,7 +283,7 @@ input:disabled {
   width: 100%;
   margin-top: 1.5rem;
   padding: 0.8rem 1.2rem;
-  border-radius: 8px;
+  border-radius: 5px;
   border: none;
   font-size: 1rem;
   font-weight: 600;
@@ -334,9 +334,9 @@ input:disabled {
   padding: 1.5rem 1rem 0.2rem;
   margin-top: 0;
   color: #082c1b;
-  font-weight: 600;
-  letter-spacing: -1.5px;
-  background: linear-gradient(45deg, #082c1b, #187c49);
+  font-weight: 700;
+  letter-spacing: -2.5px;
+  background: linear-gradient(45deg, #082c1b, #0dc566);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

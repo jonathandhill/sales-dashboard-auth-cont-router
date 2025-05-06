@@ -42,7 +42,7 @@ export const AuthContextProvider = ({ children }) => { //extracting children fro
       return { success: true, data }; // Return the user data
     } catch (error) {
       // Handle unexpected issues
-      console.error('Unexpected error during sign-in:', err.message);
+      console.error('Unexpected error during sign-in:', error.message);
       return {
         success: false,
         error: 'An unexpected error occurred. Please try again.',
@@ -64,6 +64,7 @@ export const AuthContextProvider = ({ children }) => { //extracting children fro
     getInitialSession();
 
     //Listen for session changes
+    //callback function that runs when the auth state changes
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
