@@ -1,7 +1,32 @@
 import supabase from '../supabase-client';
 import { useActionState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 function Form({ metrics }) {
+  const { session } = useAuth();
+  const accountType = session?.user?.user_metadata?.account_type;
+  const email = session?.user?.email;
+
+  let repName = '';
+  if (accountType === 'rep' && email) {
+    repName = email.split('@')[0];
+    repName = repName.charAt(0).toUpperCase() + repName.slice(1);
+  }
+
+  const generateOptions = () => {
+    return metrics.map((metric) => (
+      <option key={metric.name} value={metric.name}>
+        {metric.name}
+      </option>
+    ));
+  };
+
+  let options = generateOptions();
+  if (accountType === 'rep') {
+    options = [repName];
+    console.log('options', options);
+  }
+
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const newDeal = {
@@ -21,14 +46,6 @@ function Form({ metrics }) {
     null // Initial state
   );
 
-  const generateOptions = () => {
-    return metrics.map((metric) => (
-      <option key={metric.name} value={metric.name}>
-        {metric.name}
-      </option>
-    ));
-  };
-
   return (
     <div className="add-form-container">
       <form
@@ -41,19 +58,33 @@ function Form({ metrics }) {
           the amount.
         </div>
 
-        <label htmlFor="deal-name">
-          Name:
-          <select
-            id="deal-name"
-            name="name"
-            defaultValue={metrics?.[0]?.name || ''}
-            aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
-            disabled={isPending}
-          >
-            {generateOptions()}
-          </select>
-        </label>
+        {accountType === 'rep' ? (
+          <label htmlFor="deal-name">
+            Name:
+            <input
+              id="deal-name"
+              type="text"
+              name="name"
+              value={repName}
+              readOnly
+              className="rep-name-input"
+            />
+          </label>
+        ) : (
+          <label htmlFor="deal-name">
+            Name:
+            <select
+              id="deal-name"
+              name="name"
+              defaultValue={metrics?.[0]?.name || ''}
+              aria-required="true"
+              aria-invalid={error ? 'true' : 'false'}
+              disabled={isPending}
+            >
+              {generateOptions()}
+            </select>
+          </label>
+        )}
 
         <label htmlFor="deal-value">
           Amount: $

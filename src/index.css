@@ -55,7 +55,7 @@ header h1 {
 /* Header email */
 .header-email {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
   margin-top: 0;
@@ -67,6 +67,10 @@ header h1 {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 400;
   letter-spacing: 0px;
+}
+
+.header-email .account-type {
+  margin-left: 2rem;
 }
 
 .header-email button {
@@ -181,6 +185,13 @@ form button:disabled {
   margin-left: 2px;
   background-color: #ffffff;
   color: black;
+}
+
+.rep-name-input {
+  margin-left: 5px;
+  color: black;
+  background: #e9ecef;
+  width: 60px;
 }
 
 select {
@@ -321,7 +332,7 @@ input:disabled {
   text-align: center; /* optional: center label text */
 }
 
-.sign-form-container input {
+.sign-form-container .radio-group input {
   margin-right: 0.5rem;
   margin-top: 0;
 }

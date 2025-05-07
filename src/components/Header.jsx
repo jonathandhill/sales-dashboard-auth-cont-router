@@ -18,6 +18,14 @@ function Header() {
     }
   };
 
+  const accountTypeMap = {
+    rep: 'Sales Rep',
+    admin: 'Admin',
+  };
+  const displayAccountType =
+    accountTypeMap[session.user.user_metadata.account_type] ||
+    session.user.user_metadata.account_type;
+
   return (
     <header role="banner" aria-label="Dashboard header">
       <h1>
@@ -46,6 +54,7 @@ function Header() {
         role="navigation"
         aria-label="User account navigation"
       >
+        <h2 className="account-type">{displayAccountType}</h2>
         {error && (
           <div role="alert" className="error-message" id="signout-error">
             {error}

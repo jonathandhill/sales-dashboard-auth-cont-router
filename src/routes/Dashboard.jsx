@@ -19,7 +19,7 @@ function Dashboard() {
           table: 'sales_deals',
         },
         (payload) => {
-          console.log(payload);
+          // console.log(payload);
           const { new: newRecord } = payload;
           // const { name, value } = newRecord;
 

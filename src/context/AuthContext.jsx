@@ -10,11 +10,16 @@ export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState(undefined);
 
   // Sign up
-  const signUpNewUser = async (email, password) => {
+  const signUpNewUser = async (email, password, accountType) => {
     try {
       const { data, error } = await supabase.auth.signUp({
         email: email.toLowerCase(),
         password: password,
+        options: {
+          data: {
+            account_type: accountType,
+          },
+        },
       });
 
       if (error) {
@@ -75,6 +80,7 @@ export const AuthContextProvider = ({ children }) => {
     //Listen for session changes
     //callback function that runs when the auth state changes
     supabase.auth.onAuthStateChange((_event, session) => {
+      console.log('Auth state changed:', session);
       setSession(session);
     });
   }, []);

@@ -11,13 +11,14 @@ const Signup = () => {
     async (previousState, formData) => {
       const email = formData.get('email');
       const password = formData.get('password');
+      const accountType = formData.get('account-type');
       
       try {  
         const {
           success,
           data,
           error: signUpError,
-        } = await signUpNewUser(email, password);
+        } = await signUpNewUser(email, password, accountType);
 
         if (signUpError) {
           //Error would be logged in the AuthContext
@@ -96,10 +97,10 @@ const Signup = () => {
             <legend>Select your role</legend>
             <div className="radio-group">
               <label>
-                <input type="radio" name="role" value="admin" required /> Admin
+                <input type="radio" name="account-type" value="admin" required /> Admin
               </label>
               <label>
-                <input type="radio" name="role" value="rep" required /> Sales
+                <input type="radio" name="account-type" value="rep" required /> Sales
                 Rep
               </label>
             </div>
