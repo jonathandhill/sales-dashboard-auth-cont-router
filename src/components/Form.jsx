@@ -21,12 +21,6 @@ function Form({ metrics }) {
     ));
   };
 
-  let options = generateOptions();
-  if (accountType === 'rep') {
-    options = [repName];
-    console.log('options', options);
-  }
-
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const newDeal = {
