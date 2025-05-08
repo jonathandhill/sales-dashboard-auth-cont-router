@@ -6,6 +6,7 @@ function Form({ metrics }) {
   const { session } = useAuth();
   const accountType = session?.user?.user_metadata?.account_type;
   const email = session?.user?.email;
+  const uuid = session?.user?.id;
 
   let repName = '';
   if (accountType === 'rep' && email) {
@@ -21,17 +22,13 @@ function Form({ metrics }) {
     ));
   };
 
-  let options = generateOptions();
-  if (accountType === 'rep') {
-    options = [repName];
-    console.log('options', options);
-  }
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const newDeal = {
         name: formData.get('name'),
         value: formData.get('value'),
+        user_id: uuid,
       };
       console.log('newDeal', newDeal);
 
