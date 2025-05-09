@@ -11,8 +11,12 @@ function Header() {
     e.preventDefault();
 
     try {
-      await signOut();
-      navigate('/');
+      const { success, error } = await signOut();
+      if (success) {
+        navigate('/');
+      } else {
+        setError(error);
+      }
     } catch (err) {
       setError('An unexpected error occurred during sign out.');
     }

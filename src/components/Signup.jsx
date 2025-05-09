@@ -12,8 +12,8 @@ const Signup = () => {
       const email = formData.get('email');
       const password = formData.get('password');
       const accountType = formData.get('account-type');
-      
-      try {  
+
+      try {
         const {
           success,
           data,
@@ -30,7 +30,7 @@ const Signup = () => {
           return null; // Return success state
         }
 
-        return null; // Handles any other case, if needed 
+        return null; // Handles any other case, if needed
       } catch (err) {
         console.error('Sign up error: ', err);
         return new Error('An unexpected error occurred. Please try again.');
@@ -97,11 +97,17 @@ const Signup = () => {
             <legend>Select your role</legend>
             <div className="radio-group">
               <label>
-                <input type="radio" name="account-type" value="admin" required /> Admin
+                <input
+                  type="radio"
+                  name="account-type"
+                  value="admin"
+                  required
+                />{' '}
+                Admin
               </label>
               <label>
-                <input type="radio" name="account-type" value="rep" required /> Sales
-                Rep
+                <input type="radio" name="account-type" value="rep" required />{' '}
+                Sales Rep
               </label>
             </div>
           </fieldset>

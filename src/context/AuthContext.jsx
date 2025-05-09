@@ -9,6 +9,27 @@ export const AuthContextProvider = ({ children }) => {
   //extracting children from props
   const [session, setSession] = useState(undefined);
 
+  useEffect(() => {
+    //Get initial session
+    async function getInitialSession() {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Error getting session:', error);
+        return;
+      }
+      setSession(data.session);
+    }
+
+    getInitialSession();
+
+    //Listen for session changes
+    //callback function that runs when the auth state changes
+    supabase.auth.onAuthStateChange((_event, session) => {
+      console.log('Auth state changed:', session);
+      setSession(session);
+    });
+  }, []);
+
   // Sign up
   const signUpNewUser = async (email, password, accountType) => {
     try {
@@ -64,32 +85,21 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    //Get initial session
-    async function getInitialSession() {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Error getting session:', error);
-        return;
-      }
-      setSession(data.session);
-    }
-
-    getInitialSession();
-
-    //Listen for session changes
-    //callback function that runs when the auth state changes
-    supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('Auth state changed:', session);
-      setSession(session);
-    });
-  }, []);
-
   // Sign out
   async function signOut() {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Error signing out:', error);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Error signing out:', error.message);
+        return { success: false, error: error.message };
+      }
+      return { success: true };
+    } catch (error) {
+      console.error('Unexpected error during sign out:', error.message);
+      return {
+        success: false,
+        error: 'An unexpected error occurred during sign out.',
+      };
     }
   }
 
