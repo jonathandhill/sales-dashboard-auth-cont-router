@@ -8,7 +8,7 @@ const RootRedirect = () => {
     return <div>Loading...</div>;
   }
 
-  return session ? <Navigate to="/dashboard" /> : <Navigate to="/" />;
+  return session ? <Navigate to="/dashboard" /> : <Navigate to="/signin" />;
 };
 
 export default RootRedirect;
