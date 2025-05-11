@@ -4,10 +4,15 @@ import Signup from './components/Signup';
 import Dashboard from './routes/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Header';
+import RootRedirect from './routes/RootRedirect';
 
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <RootRedirect />,
+  },
+  {
+    path: '/signin',
     element: <Signin />,
   },
   {
