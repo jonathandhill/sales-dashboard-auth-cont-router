@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   // If the user is not logged in, navigate to the login page
-  return <div>{session ? <>{children}</> : <Navigate to="/signin" />}</div>;
+  return session ? <>{children}</> : <Navigate to="/signin" />;
 };
 
 export default ProtectedRoute;
