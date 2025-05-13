@@ -62,6 +62,8 @@ function Form({ metrics }) {
               value={repName}
               readOnly
               className="rep-name-input"
+              aria-label="Sales representative name"
+              aria-readonly="true"
             />
           </label>
         ) : (
