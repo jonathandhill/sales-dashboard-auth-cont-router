@@ -227,7 +227,7 @@ input:disabled {
 .sign-form-container {
   max-width: 28rem;
   margin: 0 auto;
-  padding: 2.5rem;
+  padding: 1.6rem 2.5rem 1.8rem 2.5rem;/* changed */
   border: 1px solid #e4e4e4;
   border-radius: 5px;
   background: white;
@@ -243,7 +243,7 @@ input:disabled {
 .sign-form-container h2 {
   font-weight: 600;
   font-size: 1.75rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.7rem;/* changed */
   margin: 0;
   color: #082c1b;
 }
@@ -264,7 +264,7 @@ input:disabled {
 
 .sign-form-container .form-input {
   width: 100%;
-  margin: 1rem 0;
+  margin: 0.5rem 0 1rem 0;/* changed */
   padding: 0.8rem 1rem;
   border: 1.5px solid #e4e4e4;
   border-radius: 5px;
@@ -340,7 +340,8 @@ input:disabled {
   text-align: center;
   font-size: 3.5rem;
   line-height: 1.2;
-  padding: 1.5rem 1rem 0.2rem;
+  margin-bottom: 0.7rem;/* added */
+  padding: 0.6rem 1rem 0.2rem;/* changed */
   margin-top: 0;
   color: #082c1b;
   font-weight: 700;
