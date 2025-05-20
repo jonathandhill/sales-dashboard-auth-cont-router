@@ -11,13 +11,13 @@ const Signup = () => {
       const email = formData.get('email');
       const password = formData.get('password');
       const accountType = formData.get('account-type');
-
+      const name = formData.get('name');
       try {
         const {
           success,
           data,
           error: signUpError,
-        } = await signUpNewUser(email, password, accountType);
+        } = await signUpNewUser(email, password, accountType, name);
 
         if (signUpError) {
           //Error would be logged in the AuthContext
@@ -88,6 +88,20 @@ const Signup = () => {
             disabled={isPending}
           />
 
+          <label htmlFor="name">Name</label>
+          <input
+            className="form-input"
+            type="text"
+            name="name"
+            id="name"
+            placeholder=""
+            required
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? 'signup-error' : undefined}
+            disabled={isPending}
+          />
+
           <fieldset
             className="form-fieldset"
             aria-required="true"
@@ -109,7 +123,12 @@ const Signup = () => {
                 Sales Rep
               </label>
               <label>
-                <input type="radio" name="account-type" value="readonly" required />{' '}
+                <input
+                  type="radio"
+                  name="account-type"
+                  value="readonly"
+                  required
+                />{' '}
                 Manager
               </label>
             </div>

@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom';
 function Header() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { session, signOut } = useAuth();
+  const { session, signOut, users } = useAuth();
+
+  //Find current user with null check
+  const currentUser = users.find((user) => user.id === session?.user?.id);
 
   const handleSignOut = async (e) => {
     e.preventDefault();
@@ -22,15 +25,15 @@ function Header() {
     }
   };
 
-
   const accountTypeMap = {
     rep: 'Sales Rep',
     admin: 'Admin',
     readonly: 'Manager',
   };
-  const displayAccountType =
-    accountTypeMap[session.user.user_metadata.account_type] ||
-    session.user.user_metadata.account_type;
+  // Add null check for currentUser
+  const displayAccountType = currentUser?.account_type
+    ? accountTypeMap[currentUser.account_type]
+    : '';
 
   return (
     <header role="banner" aria-label="Dashboard header">
@@ -68,7 +71,7 @@ function Header() {
         )}
         <h2>
           <span className="sr-only">Logged in as:</span>
-          {session.user.email}
+          {session?.user?.email}
         </h2>
         <button onClick={handleSignOut} aria-label="Sign out of your account">
           Sign out

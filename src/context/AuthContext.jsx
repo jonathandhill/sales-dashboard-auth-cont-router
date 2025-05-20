@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   //extracting children from props
   const [session, setSession] = useState(undefined);
+  const [users, setUsers] = useState([]); // Add state for users
 
   useEffect(() => {
     //Get initial session
@@ -29,25 +30,47 @@ export const AuthContextProvider = ({ children }) => {
       console.log('Auth state changed:', session);
       setSession(session);
     });
+
+    // Fetch users when component mounts
+    async function fetchUsers() {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('id, name, account_type');
+
+      if (error) {
+        console.error('Error fetching users:', error);
+        return;
+      }
+      setUsers(data);
+    }
+    fetchUsers();
   }, []);
 
   // Sign up
-  const signUpNewUser = async (email, password, accountType) => {
+  const signUpNewUser = async (email, password, accountType, name) => {
     try {
+      // 1. Sign up the user
       const { data, error } = await supabase.auth.signUp({
         email: email.toLowerCase(),
         password: password,
-        options: {
-          data: {
-            account_type: accountType,
-          },
-        },
       });
 
       if (error) {
         console.error('Supabase sign-up error:', error.message);
         return { success: false, error: error.message };
       }
+
+      // 2. Insert into user_profiles
+      const { error: profileError } = await supabase
+        .from('user_profiles')
+        .insert([
+          {
+            id: data.user.id,
+            name: name,
+            account_type: accountType,
+          },
+        ]);
+      if (profileError) throw profileError;
 
       return { success: true, data };
     } catch (error) {
@@ -107,7 +130,7 @@ export const AuthContextProvider = ({ children }) => {
   return (
     // Provide the AuthContext to the children
     <AuthContext.Provider
-      value={{ signUpNewUser, signInUser, session, signOut }}
+      value={{ signUpNewUser, signInUser, session, signOut, users }}
     >
       {children}
     </AuthContext.Provider>

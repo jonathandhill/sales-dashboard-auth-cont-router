@@ -2,32 +2,34 @@ import supabase from '../supabase-client';
 import { useActionState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-function Form({ metrics }) {
-  const { session } = useAuth();
-  const accountType = session?.user?.user_metadata?.account_type;
-  const email = session?.user?.email;
+function Form() {
+  const { session, users } = useAuth();
 
-  let repName = '';
-  if (accountType === 'rep' && email) {
-    repName = email.split('@')[0];
-    repName = repName.charAt(0).toUpperCase() + repName.slice(1);
-  }
+  // Get the current user's profile from the users array
+  const currentUser = users.find((user) => user.id === session?.user?.id);
+  console.log('currentUser', currentUser);
 
   const generateOptions = () => {
-    return metrics.map((metric) => (
-      <option key={metric.name} value={metric.name}>
-        {metric.name}
-      </option>
-    ));
+    return users
+      .filter((user) => user.account_type === 'rep') // Only get rep users
+      .map((user) => (
+        <option key={user.id} value={user.name}>
+          {user.name}
+        </option>
+      ));
   };
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
+      const submittedName = formData.get('name');
+      // Find the user ID from the submitted name
+      const user = users.find((u) => u.name === submittedName);
+
       const newDeal = {
-        name: formData.get('name'),
+        user_id: user.id, // Use the found ID
         value: formData.get('value'),
       };
-      // console.log('newDeal', newDeal);
+      console.log('newDeal', newDeal);
 
       const { error } = await supabase.from('sales_deals').insert(newDeal);
 
@@ -52,14 +54,14 @@ function Form({ metrics }) {
           the amount.
         </div>
 
-        {accountType === 'rep' ? (
+        {currentUser?.account_type === 'rep' ? (
           <label htmlFor="deal-name">
             Name:
             <input
               id="deal-name"
               type="text"
               name="name"
-              value={repName}
+              value={currentUser?.name || ''}
               readOnly
               className="rep-name-input"
               aria-label="Sales representative name"
@@ -72,7 +74,7 @@ function Form({ metrics }) {
             <select
               id="deal-name"
               name="name"
-              defaultValue={metrics?.[0]?.name || ''}
+              defaultValue={users[0]?.name || ''}
               aria-required="true"
               aria-invalid={error ? 'true' : 'false'}
               disabled={isPending}
