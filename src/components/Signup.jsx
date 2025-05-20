@@ -108,6 +108,10 @@ const Signup = () => {
                 <input type="radio" name="account-type" value="rep" required />{' '}
                 Sales Rep
               </label>
+              <label>
+                <input type="radio" name="account-type" value="readonly" required />{' '}
+                Manager
+              </label>
             </div>
           </fieldset>
 

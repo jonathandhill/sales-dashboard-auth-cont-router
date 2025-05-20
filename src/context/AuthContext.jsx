@@ -17,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
         console.error('Error getting session:', error);
         return;
       }
+      console.log('Initial Session data:', data);
       setSession(data.session);
     }
 

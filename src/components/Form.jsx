@@ -27,7 +27,7 @@ function Form({ metrics }) {
         name: formData.get('name'),
         value: formData.get('value'),
       };
-      console.log('newDeal', newDeal);
+      // console.log('newDeal', newDeal);
 
       const { error } = await supabase.from('sales_deals').insert(newDeal);
 

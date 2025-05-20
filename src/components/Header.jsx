@@ -22,9 +22,11 @@ function Header() {
     }
   };
 
+
   const accountTypeMap = {
     rep: 'Sales Rep',
     admin: 'Admin',
+    readonly: 'Manager',
   };
   const displayAccountType =
     accountTypeMap[session.user.user_metadata.account_type] ||

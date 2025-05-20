@@ -145,6 +145,13 @@ header h1 {
   flex-shrink: 0;
 }
 
+.add-form-container .error-message {
+  color: red;
+  text-align: center;
+  margin: 0;
+  font-size: 1rem;
+}
+
 .add-form-container form {
   display: flex;
   justify-content: center;
@@ -325,7 +332,7 @@ input:disabled {
 }
 
 .sign-form-container .radio-group label {
-  margin-left: 3.5rem;
+  margin-left: 1.6rem;/* changed to 1.6rem */
   flex: 1;
   text-align: center; /* optional: center label text */
 }
