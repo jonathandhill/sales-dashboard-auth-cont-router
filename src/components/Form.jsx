@@ -3,7 +3,7 @@ import { useActionState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 function Form() {
-  const { session, users } = useAuth();
+  const { session, users, isLoading } = useAuth();
 
   // Get the current user's profile from the users array
   const currentUser = users.find((user) => user.id === session?.user?.id);
@@ -41,6 +41,10 @@ function Form() {
     },
     null // Initial state
   );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="add-form-container">

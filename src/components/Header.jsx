@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Header() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { session, signOut, users } = useAuth();
+  const { session, signOut, users, isLoading } = useAuth();
 
   //Find current user with null check
   const currentUser = users.find((user) => user.id === session?.user?.id);
@@ -34,6 +34,10 @@ function Header() {
   const displayAccountType = currentUser?.account_type
     ? accountTypeMap[currentUser.account_type]
     : '';
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <header role="banner" aria-label="Dashboard header">

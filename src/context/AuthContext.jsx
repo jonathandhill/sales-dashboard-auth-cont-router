@@ -9,6 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   //extracting children from props
   const [session, setSession] = useState(undefined);
   const [users, setUsers] = useState([]); // Add state for users
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     //Get initial session
@@ -42,6 +43,7 @@ export const AuthContextProvider = ({ children }) => {
         return;
       }
       setUsers(data);
+      setIsLoading(false);
     }
     fetchUsers();
   }, []);
@@ -130,7 +132,7 @@ export const AuthContextProvider = ({ children }) => {
   return (
     // Provide the AuthContext to the children
     <AuthContext.Provider
-      value={{ signUpNewUser, signInUser, session, signOut, users }}
+      value={{ signUpNewUser, signInUser, session, signOut, users, isLoading }}
     >
       {children}
     </AuthContext.Provider>
