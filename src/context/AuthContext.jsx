@@ -31,8 +31,12 @@ export const AuthContextProvider = ({ children }) => {
       console.log('Auth state changed:', session);
       setSession(session);
     });
+  }, []);
 
-    // Fetch users when component mounts
+  // Separate useEffect for fetching users when session changes
+  useEffect(() => {
+    if (!session) return; // Don't fetch if no session
+
     async function fetchUsers() {
       const { data, error } = await supabase
         .from('user_profiles')
@@ -42,11 +46,12 @@ export const AuthContextProvider = ({ children }) => {
         console.error('Error fetching users:', error);
         return;
       }
+      console.log('AuthContext - fetched users:', data);
       setUsers(data);
       setIsLoading(false);
     }
     fetchUsers();
-  }, []);
+  }, [session]); // Add session as dependency
 
   // Sign up
   const signUpNewUser = async (email, password, accountType, name) => {

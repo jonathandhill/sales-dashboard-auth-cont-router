@@ -5,20 +5,6 @@ import { useAuth } from '../context/AuthContext';
 function Form() {
   const { session, users, isLoading } = useAuth();
 
-  // Get the current user's profile from the users array
-  const currentUser = users.find((user) => user.id === session?.user?.id);
-  console.log('currentUser', currentUser);
-
-  const generateOptions = () => {
-    return users
-      .filter((user) => user.account_type === 'rep') // Only get rep users
-      .map((user) => (
-        <option key={user.id} value={user.name}>
-          {user.name}
-        </option>
-      ));
-  };
-
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const submittedName = formData.get('name');
@@ -29,7 +15,7 @@ function Form() {
         user_id: user.id, // Use the found ID
         value: formData.get('value'),
       };
-      console.log('newDeal', newDeal);
+      // console.log('newDeal', newDeal);
 
       const { error } = await supabase.from('sales_deals').insert(newDeal);
 
@@ -44,6 +30,23 @@ function Form() {
 
   if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  // Get the current user's profile from the users array
+  const currentUser = users.find((user) => user.id === session?.user?.id);
+
+  const generateOptions = () => {
+    return users
+      .filter((user) => user.account_type === 'rep') // Only get rep users
+      .map((user) => (
+        <option key={user.id} value={user.name}>
+          {user.name}
+        </option>
+      ));
+  };
+
+  if (currentUser?.account_type === 'readonly') {
+    return null;
   }
 
   return (

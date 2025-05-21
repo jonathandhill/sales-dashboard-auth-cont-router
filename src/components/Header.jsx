@@ -6,9 +6,15 @@ function Header() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { session, signOut, users, isLoading } = useAuth();
+  console.log('Header render - users:', users); // Add this
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   //Find current user with null check
   const currentUser = users.find((user) => user.id === session?.user?.id);
+  console.log('Header render - currentUser', currentUser);
 
   const handleSignOut = async (e) => {
     e.preventDefault();
@@ -35,9 +41,7 @@ function Header() {
     ? accountTypeMap[currentUser.account_type]
     : '';
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  
 
   return (
     <header role="banner" aria-label="Dashboard header">
