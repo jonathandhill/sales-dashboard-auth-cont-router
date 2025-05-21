@@ -60,6 +60,20 @@ const Signup = () => {
             </Link>
           </p>
 
+          <label htmlFor="name">Name</label>
+          <input
+            className="form-input"
+            type="text"
+            name="name"
+            id="name"
+            placeholder=""
+            required
+            aria-required="true"
+            aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? 'signup-error' : undefined}
+            disabled={isPending}
+          />
+          
           <label htmlFor="email">Email</label>
           <input
             className="form-input"
@@ -88,19 +102,6 @@ const Signup = () => {
             disabled={isPending}
           />
 
-          <label htmlFor="name">Name</label>
-          <input
-            className="form-input"
-            type="text"
-            name="name"
-            id="name"
-            placeholder=""
-            required
-            aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={error ? 'signup-error' : undefined}
-            disabled={isPending}
-          />
 
           <fieldset
             className="form-fieldset"

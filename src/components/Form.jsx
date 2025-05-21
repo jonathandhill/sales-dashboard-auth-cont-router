@@ -3,7 +3,7 @@ import { useActionState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 function Form() {
-  const { session, users, isLoading } = useAuth();
+  const { session, users } = useAuth();
 
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
@@ -27,10 +27,6 @@ function Form() {
     },
     null // Initial state
   );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   // Get the current user's profile from the users array
   const currentUser = users.find((user) => user.id === session?.user?.id);
