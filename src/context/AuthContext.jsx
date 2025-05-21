@@ -75,7 +75,11 @@ export const AuthContextProvider = ({ children }) => {
             account_type: accountType,
           },
         ]);
-      if (profileError) throw profileError;
+
+      if (profileError) {
+        console.error('Profile creation error:', profileError.message);
+        return { success: false, error: profileError.message };
+      }
 
       return { success: true, data };
     } catch (error) {
