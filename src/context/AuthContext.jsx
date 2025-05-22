@@ -57,6 +57,13 @@ export const AuthContextProvider = ({ children }) => {
       const { data, error } = await supabase.auth.signUp({
         email: email.toLowerCase(),
         password: password,
+        // Add user profile data to the user_metadata field
+        options: {
+          data: {
+            name: name,
+            account_type: accountType,
+          },
+        },
       });
 
       if (error) {
@@ -64,21 +71,21 @@ export const AuthContextProvider = ({ children }) => {
         return { success: false, error: error.message };
       }
 
-      // 2. Insert into user_profiles
-      const { error: profileError } = await supabase
-        .from('user_profiles')
-        .insert([
-          {
-            id: data.user.id,
-            name: name,
-            account_type: accountType,
-          },
-        ]);
+      // // 2. Insert into user_profiles
+      // const { error: profileError } = await supabase
+      //   .from('user_profiles')
+      //   .insert([
+      //     {
+      //       id: data.user.id,
+      //       name: name,
+      //       account_type: accountType,
+      //     },
+      //   ]);
 
-      if (profileError) {
-        console.error('Profile creation error:', profileError.message);
-        return { success: false, error: profileError.message };
-      }
+      // if (profileError) {
+      //   console.error('Profile creation error:', profileError.message);
+      //   return { success: false, error: profileError.message };
+      // }
 
       return { success: true, data };
     } catch (error) {
