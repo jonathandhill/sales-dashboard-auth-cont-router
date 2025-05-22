@@ -45,7 +45,6 @@ export const AuthContextProvider = ({ children }) => {
         console.error('Error fetching users:', error);
         return;
       }
-      console.log('AuthContext - fetched users:', data);
       setUsers(data);
     }
     fetchUsers();
