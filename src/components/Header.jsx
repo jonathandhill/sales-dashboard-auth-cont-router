@@ -9,7 +9,6 @@ function Header() {
 
   //Find current user with null check
   const currentUser = users.find((user) => user.id === session?.user?.id);
-  console.log('Header render - currentUser', currentUser);
 
   const handleSignOut = async (e) => {
     e.preventDefault();

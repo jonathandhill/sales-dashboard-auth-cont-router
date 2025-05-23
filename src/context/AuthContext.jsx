@@ -18,7 +18,6 @@ export const AuthContextProvider = ({ children }) => {
         console.error('Error getting session:', error);
         return;
       }
-      console.log('Initial Session data:', data);
       setSession(data.session);
     }
 
@@ -27,7 +26,7 @@ export const AuthContextProvider = ({ children }) => {
     //Listen for session changes
     //callback function that runs when the auth state changes
     supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('Auth state changed:', session);
+      console.log('Session changed:', session);
       setSession(session);
     });
   }, []);
@@ -53,7 +52,6 @@ export const AuthContextProvider = ({ children }) => {
   // Sign up
   const signUpNewUser = async (email, password, accountType, name) => {
     try {
-      // 1. Sign up the user
       const { data, error } = await supabase.auth.signUp({
         email: email.toLowerCase(),
         password: password,
