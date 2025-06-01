@@ -36,15 +36,19 @@ export const AuthContextProvider = ({ children }) => {
     if (!session) return; // Don't fetch if no session
 
     async function fetchUsers() {
-      const { data, error } = await supabase
-        .from('user_profiles')
-        .select('id, name, account_type');
+      try {
+        const { data, error } = await supabase
+          .from('user_profiles')
+          .select('id, name, account_type');
 
-      if (error) {
-        console.error('Error fetching users:', error);
-        return;
+        if (error) {
+          console.error('Error fetching users:', error);
+          return;
+        }
+        setUsers(data);
+      } catch (error) {
+        console.error('Error fetching users:', error.message);
       }
-      setUsers(data);
     }
     fetchUsers();
   }, [session]); // Add session as dependency
