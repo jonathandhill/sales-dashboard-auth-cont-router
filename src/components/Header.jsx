@@ -71,7 +71,7 @@ function Header() {
         )}
         <h2>
           <span className="sr-only">Logged in as:</span>
-          {session?.user?.email}
+          {currentUser?.name}
         </h2>
         <button onClick={handleSignOut} aria-label="Sign out of your account">
           Sign out

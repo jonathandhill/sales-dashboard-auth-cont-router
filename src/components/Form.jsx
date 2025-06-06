@@ -20,7 +20,7 @@ function Form() {
       const { error } = await supabase.from('sales_deals').insert(newDeal);
 
       if (error) {
-        console.error('Error adding deal: ', error);
+        console.error('Error adding deal: ', error.message);
         return new Error('Failed to add deal'); // Return error state
       }
       return null; // Return success state

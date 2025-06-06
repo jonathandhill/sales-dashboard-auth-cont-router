@@ -42,8 +42,7 @@ export const AuthContextProvider = ({ children }) => {
           .select('id, name, account_type');
 
         if (error) {
-          console.error('Error fetching users:', error.message);
-          return;
+          throw error;
         }
         setUsers(data);
       } catch (error) {
