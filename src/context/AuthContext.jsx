@@ -13,12 +13,15 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     //Get initial session
     async function getInitialSession() {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Error getting session:', error);
-        return;
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          throw error;
+        }
+        setSession(data.session);
+      } catch (error) {
+        console.error('Error getting session:', error.message);
       }
-      setSession(data.session);
     }
 
     getInitialSession();

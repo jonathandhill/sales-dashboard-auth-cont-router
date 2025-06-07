@@ -51,7 +51,7 @@ function Dashboard() {
       console.log(data);
       setMetrics(data);
     } catch (error) {
-      console.error('Error fetching metrics:', error);
+      console.error('Error fetching metrics:', error.message);
     }
   }
 
