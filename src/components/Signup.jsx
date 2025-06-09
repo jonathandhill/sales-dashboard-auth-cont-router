@@ -12,28 +12,23 @@ const Signup = () => {
       const password = formData.get('password');
       const accountType = formData.get('account-type');
       const name = formData.get('name');
-      try {
-        const {
-          success,
-          data,
-          error: signUpError,
-        } = await signUpNewUser(email, password, accountType, name);
 
-        if (signUpError) {
-          //Error would be logged in the AuthContext
-          return new Error(signUpError);
-        }
+      const {
+        success,
+        data,
+        error: signUpError,
+      } = await signUpNewUser(email, password, accountType, name);
 
-        if (success && data?.session) {
-          navigate('/dashboard');
-          return null; // Return success state
-        }
-
-        return null; // Handles any other case, if needed
-      } catch (err) {
-        console.error('Sign up error: ', err);
-        return new Error('An unexpected error occurred. Please try again.');
+      if (signUpError) {
+        return new Error(signUpError);
       }
+
+      if (success && data?.session) {
+        navigate('/dashboard');
+        return null; // Return success state
+      }
+
+      return null; // Handles any other case, if needed
     },
     null // Initial state
   );
@@ -73,7 +68,7 @@ const Signup = () => {
             aria-describedby={error ? 'signup-error' : undefined}
             disabled={isPending}
           />
-          
+
           <label htmlFor="email">Email</label>
           <input
             className="form-input"
@@ -101,7 +96,6 @@ const Signup = () => {
             aria-describedby={error ? 'signup-error' : undefined}
             disabled={isPending}
           />
-
 
           <fieldset
             className="form-fieldset"

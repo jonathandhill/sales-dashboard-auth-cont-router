@@ -11,28 +11,22 @@ const Signin = () => {
       const email = formData.get('email');
       const password = formData.get('password');
 
-      try {
-        const {
-          success,
-          data,
-          error: signInError,
-        } = await signInUser(email, password);
+      const {
+        success,
+        data,
+        error: signInError,
+      } = await signInUser(email, password);
 
-        if (signInError) {
-          //Error would be logged in the AuthContext
-          return new Error(signInError);
-        }
-
-        if (success && data?.session) {
-          navigate('/dashboard');
-          return null;
-        }
-
-        return null; // Handles any other case, if needed
-      } catch (err) {
-        console.error('Sign in error: ', err);
-        return new Error('An unexpected error occurred. Please try again.');
+      if (signInError) {
+        return new Error(signInError);
       }
+
+      if (success && data?.session) {
+        navigate('/dashboard');
+        return null;
+      }
+
+      return null; // Handles any other case, if needed
     },
     null // Initial state
   );
