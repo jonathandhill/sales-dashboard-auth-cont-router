@@ -37,6 +37,24 @@ function Header() {
 
   return (
     <header role="banner" aria-label="Dashboard header">
+      <div
+        className="header-email"
+        role="navigation"
+        aria-label="User account navigation"
+      >
+        <h2>
+          <span className="sr-only">Logged in as:</span>
+          {currentUser?.name} ({displayAccountType})
+        </h2>
+        {error && (
+          <div role="alert" className="error-message" id="signout-error">
+            {error}
+          </div>
+        )}
+        <button onClick={handleSignOut} aria-label="Sign out of your account">
+          Sign out
+        </button>
+      </div>
       <h1>
         <svg
           width="28"
@@ -58,25 +76,6 @@ function Header() {
         </svg>
         <span>Sales Team Dashboard</span>
       </h1>
-      <div
-        className="header-email"
-        role="navigation"
-        aria-label="User account navigation"
-      >
-        <h2 className="account-type">{displayAccountType}</h2>
-        {error && (
-          <div role="alert" className="error-message" id="signout-error">
-            {error}
-          </div>
-        )}
-        <h2>
-          <span className="sr-only">Logged in as:</span>
-          {currentUser?.name}
-        </h2>
-        <button onClick={handleSignOut} aria-label="Sign out of your account">
-          Sign out
-        </button>
-      </div>
     </header>
   );
 }
