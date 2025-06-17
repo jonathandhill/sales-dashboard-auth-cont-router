@@ -13,15 +13,11 @@ function Header() {
   const handleSignOut = async (e) => {
     e.preventDefault();
 
-    try {
-      const { success, error } = await signOut();
-      if (success) {
-        navigate('/signin');
-      } else {
-        setError(error);
-      }
-    } catch (err) {
-      setError('An unexpected error occurred during sign out.');
+    const { success, error } = await signOut();
+    if (success) {
+      navigate('/signin');
+    } else {
+      setError(error.message);
     }
   };
 

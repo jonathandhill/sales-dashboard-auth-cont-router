@@ -8,7 +8,7 @@ function Form() {
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
       const submittedName = formData.get('name');
-      // Find the user ID from the submitted name
+      // Find the user object from users array that matches the submitted name
       const user = users.find((u) => u.name === submittedName);
 
       const newDeal = {
